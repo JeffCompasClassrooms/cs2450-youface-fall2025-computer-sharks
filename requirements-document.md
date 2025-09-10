@@ -46,4 +46,11 @@ The text messages will have mini-games.
 
 Clowns can work together by sharing their location.
 
-Non-Functional Requirements: App: Not only through browser, but also a desktop and mobile app for both android and IOS/MacOS. Maintainability: System can be "let loose", or require little upkeep from us as a team, especially with scale. We should be able to handle many users smoothly. Security: Method of security/user verification (no clownfish here). This could include email verification, direct verificaiton of ID cards, or image verification.
+
+Non-Functional Requirements: 
+    App:
+    Not only through browser, but also a desktop and mobile app for both android and IOS/MacOS. 
+    Maintainability:
+    System can be "let loose", or require little upkeep from us as a team, especially with scale. We should be able to handle many users smoothly. 
+    Security:
+    Method of security/user verification (no clownfish here). This could include email verification, direct verificaiton of ID cards, or image verification. 
