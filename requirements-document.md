@@ -17,6 +17,22 @@ Assumptions:
 * Server will keep running.
 * Users will be able to navigate a web page semi proficiently
 
-Features:
+Features: 
+Clowns are gonna be able to create their profile like a dating app and their talents as professional clowns. They can upload any pictures of what they do.
+
+In every profile there is gonna be a match feature to show them with who they match the most with someone else.
+
+The records will be kept in a file for each profile with ultra security system.
+
+The system will interface with the management system to intervene in the match if there is something wrong going on or thelp them by giving it some advice to lead the relationship to another level.Relationships advice. Marriage!!!!
+
+It is gonna be a realistic website. We are gonna detect any information upload that uses an AI to create a false profile.
+
+If someone creates a false profile will be sentenced to pay an amount of money for lying and going against the law of the website or kick out from the website for life.
+
+The text messages will have mini-games.
+
+Clowns can work together by sharing their location.
+
 
 Non-Functional Requirements: 
