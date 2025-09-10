@@ -8,7 +8,14 @@ The project serves to help clowns to avoid having to sift through other dating a
 
 Scope: This app will be available through an app or web browser. MVP will be to have a website that can function as we want it to.
 
-Assumptions:
+Assumptions: 
+* This app will run on modern web browsers as well as have an app for IOS and Android.
+* Internet access is a must.
+* Users will have to have access to a camera of some sort for photos.
+* Users will make an account.
+* The third party stuff (DB) we use continues to be available.
+* Server will keep running.
+* Users will be able to navigate a web page semi proficiently
 
 Features:
 
