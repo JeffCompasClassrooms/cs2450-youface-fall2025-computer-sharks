@@ -1,0 +1,29 @@
+Project Name: OnlyClowns
+
+Business Context: Proffesional Clowns, Amateur Clowns, Party Clowns and soon to be clowns to be able to find a love of their life that shares the same interests.
+
+Problem Statement: It is hard for clowns to meet, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet.
+
+Scope: This app will be available through an app or web browser. MVP will be to have a website that can function as we want it to.
+
+Assumptions:
+
+Features: Clowns are gonna be able to create their profile like a dating app and their talents as professional clowns. They can upload any pictures of what they do. 
+
+In every profile there is gonna be a match feature to show them with who they match the most with someone else. 
+
+The records will be kept in a file for each profile with ultra security system. 
+
+The system will interface with the management system to intervene in the match if there is something wrong going on or thelp them by giving it some advice to lead the relationship to another level.Relationships advice. Marriage!!!! 
+
+It is gonna be a realistic website. We are gonna detect any information upload that uses an AI to create a false profile. 
+
+If someone creates a false profile will be sentenced to pay an amount of money for lying and going against the law of the website or kick out from the website for life.  
+
+The text messages will have mini-games. 
+
+Clowns can work together by sharing their location. 
+
+
+
+Non-Functional Requirements: 
