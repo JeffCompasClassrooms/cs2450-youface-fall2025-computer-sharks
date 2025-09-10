@@ -4,9 +4,29 @@ Business Context: Profesional Clowns, Amateur Clowns, Party Clowns and soon-to-b
 
 Problem Statement: It is hard for clowns to meet, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
 
-Scope: This app will be available through an app or web browser. MVP will be to have a website that can function as we want it to.
+Scope:  This app will connect and allow clowns from all over to converse and find the person who stole their squeeky nose.
+Will do:
+    Create and edit accounts
+    Database for persistance
+    Admin for management
+    User searching *
+    Available on web browser
+    Available on app stores *
 
-Assumptions:
+Wont do:
+    Multi language
+    Calling or video calling
+
+# * mean not part of MVP (minimum viable product)
+
+Assumptions: 
+* This app will run on modern web browsers as well as have an app for IOS and Android.
+* Internet access is a must.
+* Users will have to have access to a camera of some sort for photos.
+* Users will make an account.
+* The third party stuff (DB) we use continues to be available.
+* Server will keep running.
+* Users will be able to navigate a web page semi proficiently
 
 Features:
 
