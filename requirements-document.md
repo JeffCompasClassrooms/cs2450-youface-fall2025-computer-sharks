@@ -4,20 +4,9 @@ Business Context: Profesional Clowns, Amateur Clowns, Party Clowns and soon-to-b
 
 Problem Statement: It is hard for clowns to meet, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
 
-Scope:  This app will connect and allow clowns from all over to converse and find the person who stole their squeeky nose.
-Will do:
-    Create and edit accounts
-    Database for persistance
-    Admin for management
-    User searching *
-    Available on web browser
-    Available on app stores *
+The project serves to help clowns to avoid having to sift through other dating apps/forums that are full of non-clowns and to meet a group of people that share the same interests of clowning around. Easy to meet other clowns.
 
-Wont do:
-    Multi language
-    Calling or video calling
-
-# * mean not part of MVP (minimum viable product)
+Scope: This app will be available through an app or web browser. MVP will be to have a website that can function as we want it to.
 
 Assumptions: 
 * This app will run on modern web browsers as well as have an app for IOS and Android.
@@ -28,7 +17,23 @@ Assumptions:
 * Server will keep running.
 * Users will be able to navigate a web page semi proficiently
 
-Features:
+Features: 
+Clowns are gonna be able to create their profile like a dating app and their talents as professional clowns. They can upload any pictures of what they do.
+
+In every profile there is gonna be a match feature to show them with who they match the most with someone else.
+
+The records will be kept in a file for each profile with ultra security system.
+
+The system will interface with the management system to intervene in the match if there is something wrong going on or thelp them by giving it some advice to lead the relationship to another level.Relationships advice. Marriage!!!!
+
+It is gonna be a realistic website. We are gonna detect any information upload that uses an AI to create a false profile.
+
+If someone creates a false profile will be sentenced to pay an amount of money for lying and going against the law of the website or kick out from the website for life.
+
+The text messages will have mini-games.
+
+Clowns can work together by sharing their location.
+
 
 Non-Functional Requirements: 
     App:
