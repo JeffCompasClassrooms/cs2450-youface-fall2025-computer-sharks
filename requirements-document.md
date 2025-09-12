@@ -46,6 +46,7 @@ The text messages will have mini-games.
 
 Clowns can work together by sharing their location.
 
+THis is a small change
 
 Non-Functional Requirements: 
     App:
