@@ -2,7 +2,7 @@ Project Name: OnlyClowns
 
 Business Context: Profesional Clowns, Amateur Clowns, Party Clowns and soon-to-be clowns to be able to find a love of their life that shares the same interests.
 
-Problem Statement: It is hard for clowns to meet, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
+Problem Statement: It is hard for clowns to meet each other, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
 
 The project serves to help clowns to avoid having to sift through other dating apps/forums that are full of non-clowns and to meet a group of people that share the same interests of clowning around. Easy to meet other clowns.
 
