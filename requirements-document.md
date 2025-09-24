@@ -1,23 +1,41 @@
-Project Name: OnlyClowns
+### Project Name: OnlyClowns
 
-Business Context: Profesional Clowns, Amateur Clowns, Party Clowns and soon-to-be clowns to be able to find a love of their life that shares the same interests.
+### Business Context
 
-Problem Statement: It is hard for clowns to meet, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
+ Profesional Clowns, Amateur Clowns, Party Clowns and soon-to-be clowns to be able to find a love of their life that shares the same interests.
+
+### Problem Statement 
+
+    It is hard for clowns to meet each other, if someone hires a clown for a party they have no need to hire a second so the clowns have no chance to meet. Non-clowns may not take them seriously.
 
 The project serves to help clowns to avoid having to sift through other dating apps/forums that are full of non-clowns and to meet a group of people that share the same interests of clowning around. Easy to meet other clowns.
 
-Scope: This app will be available through an app or web browser. MVP will be to have a website that can function as we want it to.
+## Scope  
+This app will connect and allow clowns from all over to converse and find the person who stole their squeaky nose.  
 
-Assumptions: 
-* This app will run on modern web browsers as well as have an app for IOS and Android.
-* Internet access is a must.
-* Users will have to have access to a camera of some sort for photos.
-* Users will make an account.
-* The third party stuff (DB) we use continues to be available.
-* Server will keep running.
-* Users will be able to navigate a web page semi proficiently
+### Will Do  
+- Create and edit accounts  
+- Database for persistence  
+- Admin for management  
+- User searching *  
+- Available on web browser  
+- Available on app stores *  
 
-Features: 
+### Won’t Do  
+- Multi-language  
+- Calling or video calling  
+Assumptions:
+
+This app will run on modern web browsers as well as have an app for IOS and Android.
+Internet access is a must.
+Users will have to have access to a camera of some sort for photos.
+Users will make an account.
+The third party stuff (DB) we use continues to be available.
+Server will keep running.
+Users will be able to navigate a web page semi proficiently
+
+### Features
+
 Clowns are gonna be able to create their profile like a dating app and their talents as professional clowns. They can upload any pictures of what they do.
 
 In every profile there is gonna be a match feature to show them with who they match the most with someone else.
@@ -34,8 +52,19 @@ The text messages will have mini-games.
 
 Clowns can work together by sharing their location.
 
+Clowns will have the ability to select their preference of clown, ie gender, hair color, nose, talents and shoe size
 
-Non-Functional Requirements: 
+Speed dating events where during a specific time during the week clowns can have 5-10 minute live discussions with other clowns.
+
+There will be a most compatible feature that shows the most compatible clown based on features and interests.
+
+Profile prompts to make profiles interesting and spicy >:)
+
+Clown horn, a feature that is a special note sent to a clown that one finds so irresistable that they can send a message regardless if they have matched yet.
+
+This is a small change
+
+### Non-Functional Requirements: 
     App:
     Not only through browser, but also a desktop and mobile app for both android and IOS/MacOS. 
     Maintainability:
