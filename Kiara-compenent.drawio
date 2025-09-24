@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.2.4">
+  <diagram name="Page-1" id="90a13364-a465-7bf4-72fc-28e22215d7a0">
+    <mxGraphModel dx="840" dy="495" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" style=";html=1;" />
+        <mxCell id="1" style=";html=1;" parent="0" />
+        <mxCell id="wbFJKXUfgnaccV310EJ3-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-2" target="wbFJKXUfgnaccV310EJ3-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-2" value="&amp;nbsp;Web Server&lt;div&gt;(Flask)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="190" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-3" target="wbFJKXUfgnaccV310EJ3-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-3" target="wbFJKXUfgnaccV310EJ3-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-3" value="Route Handlers&lt;div&gt;(Flask Views)&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="445" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-6" value="Template&lt;div&gt;(Jinja2)&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="428" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-8" value="Calls Route&amp;nbsp;&lt;div&gt;Handles&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="500" y="260" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-9" value="render (Jinja)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="495" y="398" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-10" value="User DB&lt;div&gt;()&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="428" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-12" target="wbFJKXUfgnaccV310EJ3-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-12" target="wbFJKXUfgnaccV310EJ3-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-12" value="Match Engine&amp;nbsp;&lt;div&gt;(Pyhton)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="580" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-14" value="&amp;nbsp;Shows UI" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="600" y="528" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-15" value="Messaging Module&lt;div&gt;(Flask Route)&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="705" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wbFJKXUfgnaccV310EJ3-17" target="wbFJKXUfgnaccV310EJ3-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-17" value="Auth Module&lt;div&gt;(Flask Login)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wbFJKXUfgnaccV310EJ3-19" value="Auth Check" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="345" y="518" width="90" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
