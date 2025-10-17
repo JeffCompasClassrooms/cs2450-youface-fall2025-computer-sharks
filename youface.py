@@ -9,6 +9,7 @@ import tinydb
 # handlers
 from handlers import friends, login, posts
 
+
 app = flask.Flask(__name__)
 
 @app.template_filter('convert_time')

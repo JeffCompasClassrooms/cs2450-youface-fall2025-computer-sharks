@@ -41,6 +41,14 @@ def login():
 
     submit = flask.request.form.get('type')
     if submit == 'Create':
+        shoe_size = flask.request.form.get('shoe_size', 0)
+        has_horn = flask.request.form.get('has_clown_horns', 'false').lower() == 'true'
+
+        try:
+            shoe_size = int(shoe_size)
+        except ValueError:
+            shoe_size = 0
+
         if users.new_user(db, username, password) is None:
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
