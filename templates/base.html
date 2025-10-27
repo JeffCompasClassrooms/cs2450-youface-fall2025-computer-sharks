@@ -28,11 +28,16 @@
             </ul>
             <ul class="navbar-nav pull-right">
               {% if user %}
+              {% if user %}
               <form method="post" action="/logout">
                 <button type="submit" class="form-control btn btn-secondary" name="logout">Logout</button>
               </form>
               {% endif %}
-              <a href="profile.html" class="form-control btn btn-secondary">Edit Profile</a>
+              <a href="/profile" class="form-control btn btn-secondary">Edit Profile</a>
+                <button type="submit" class="form-control btn btn-secondary" name="logout">Logout</button>
+              </form>
+              {% endif %}
+              <a href="/profile" class="form-control btn btn-secondary">Edit Profile</a>
             </ul>
           </div>
         </div>

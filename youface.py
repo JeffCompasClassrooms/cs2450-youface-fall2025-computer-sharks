@@ -7,8 +7,7 @@ import timeago
 import tinydb
 
 # handlers
-from handlers import friends, login, posts
-
+from handlers import friends, login, posts, profile
 app = flask.Flask(__name__)
 
 @app.template_filter('convert_time')
@@ -19,6 +18,7 @@ def convert_time(ts):
 app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
+app.register_blueprint(profile.blueprint)
 
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
