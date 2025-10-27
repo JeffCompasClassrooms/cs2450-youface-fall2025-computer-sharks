@@ -7,7 +7,7 @@ import timeago
 import tinydb
 
 # handlers
-from handlers import friends, login, posts
+from handlers import friends, login, posts, profile
 
 app = flask.Flask(__name__)
 

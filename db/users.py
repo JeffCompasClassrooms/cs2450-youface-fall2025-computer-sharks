@@ -8,7 +8,12 @@ def new_user(db, username, password,shoe_size=None, is_clown=False, has_clown_ho
     user_record = {
             'username': username,
             'password': password,
-            'friends': []
+            'friends': [],
+            'profile': {
+            'shoe_size': shoe_size,
+            'is_clown':is_clown,
+            'has_clown_horns': has_clown_horns
+            }
             }
     return users.insert(user_record)
 def get_all_users(db):
