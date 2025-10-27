@@ -32,7 +32,7 @@
                 <button type="submit" class="form-control btn btn-secondary" name="logout">Logout</button>
               </form>
               {% endif %}
-              <a href="profile.html" class="form-control btn btn-secondary">Edit Profile</a>
+              <a href="{{ url_for('profile.edit_profile') }}" class="form-control btn btn-secondary">Edit Profile</a>
             </ul>
           </div>
         </div>

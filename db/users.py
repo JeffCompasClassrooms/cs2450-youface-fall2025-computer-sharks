@@ -58,3 +58,13 @@ def get_user_friends(db, user):
     for friend in user['friends']:
         friends.append(users.get(User.username == friend))
     return friends
+
+def update_user_profile_pic(db, user, pic_path):
+    users = db.table('users')
+    User = tinydb.Query()
+    user['profile_pic'] = pic_path
+    users.upsert(user, (User.username == user['username']))
+    return "Profile picture updated!", "success"
+
+def get_user_profile_pic(db, user):
+    return user.get('profile_pic', 'default.jpg')

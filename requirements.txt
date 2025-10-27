@@ -1,3 +1,5 @@
 flask
 tinydb
 timeago
+Werkzeug
+Pillow
