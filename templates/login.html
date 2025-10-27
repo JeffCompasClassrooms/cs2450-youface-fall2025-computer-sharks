@@ -6,17 +6,38 @@
     <div class="card card-body bg-light">
       <form method="post" action="/login">
         <fieldset>
-          <legend>Login</legend>
+          <legend>Login / Create Account</legend>
           <hr />
-          <div class="form-group">
+
+          <!-- Username -->
+          <div class="form-group mb-3">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username">
+            <input type="text" class="form-control" name="username" required>
           </div>
-          <div class="form-group">
+
+          <!-- Password -->
+          <div class="form-group mb-3">
             <label for="password">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" required>
           </div>
-          <div class="form-group">
+
+          <!-- 🥿 Shoe Size -->
+          <div class="form-group mb-3">
+            <label for="shoe_size">Shoe Size</label>
+            <input type="number" class="form-control" name="shoe_size" min="0" max="30" placeholder="Enter your clown shoe size">
+          </div>
+
+          <!-- 🔔 Has Horn -->
+          <div class="form-group mb-4">
+            <label for="has_horn">Do you have a clown horn?</label>
+            <select class="form-control" name="has_horn">
+              <option value="false" selected>No</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+
+          <!-- Buttons -->
+          <div class="form-group text-center">
             <input class="btn btn-primary" type="submit" name="type" value="Login">
             <input class="btn btn-success" type="submit" name="type" value="Create">
             <input class="btn btn-danger" type="submit" name="type" value="Delete">
@@ -27,3 +48,4 @@
   </div>
 </div>
 {% endblock %}
+

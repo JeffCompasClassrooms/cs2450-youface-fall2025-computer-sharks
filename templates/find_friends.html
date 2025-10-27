@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Find Your Perfect Clown</h1>
+
+    <!-- Filter Form -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Filter Your Choices</h5>
+            <!-- This form now points to our new find_friends route -->
+            <form action="{{ url_for('friends.find_friends') }}" method="GET" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="shoe_size" class="form-label">Minimum Shoe Size</label>
+                    <!-- Pre-fills the input with the last submitted value -->
+                    <input type="number" class="form-control" id="shoe_size" name="shoe_size" min="1" placeholder="e.g., 14" value="{{ request.args.get('shoe_size', '') }}">
+                </div>
+                <div class="col-md-4 d-flex align-items-center pt-4">
+                    <div class="form-check form-switch me-4">
+                        <!-- Checks the box if the filter was active -->
+                        <input class="form-check-input" type="checkbox" id="is_clown" name="is_clown" value="on" {% if request.args.get('is_clown') %}checked{% endif %}>
+                        <label class="form-check-label" for="is_clown">Is a Clown?</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="has_clown_horns" name="has_clown_horns" value="on" {% if request.args.get('has_clown_horns') %}checked{% endif %}>
+                        <label class="form-check-label" for="has_clown_horns">Has Clown Horns?</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Display Filtered Users -->
+    <div class="row">
+        {% if users %}
+            {% for user in users %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Link to their profile page using your existing view_friend route -->
+                        <h5 class="card-title"><a href="{{ url_for('friends.view_friend', fname=user.username) }}">{{ user.username }}</a></h5>
+                        <p class="card-text">
+                            <!-- Display clown-specific info if it exists -->
+                            {% if user.is_clown %}
+                                <span class="badge bg-danger">Clown</span>
+                            {% endif %}
+                            {% if user.has_clown_horns %}
+                                <span class="badge bg-warning text-dark">Has Horns</span>
+                            {% endif %}
+                        </p>
+                        {% if user.shoe_size %}
+                            <p class="card-text"><strong>Shoe Size:</strong> {{ user.shoe_size }}</p>
+                        {% endif %}
+                        
+                        <!-- Form to add this user as a friend -->
+                        <form action="{{ url_for('friends.addfriend') }}" method="POST">
+                            <input type="hidden" name="name" value="{{ user.username }}">
+                            <button type="submit" class="btn btn-success">Add Friend</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col">
+                <p class="text-center text-muted">No clowns match your criteria. Try adjusting your filters!</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
