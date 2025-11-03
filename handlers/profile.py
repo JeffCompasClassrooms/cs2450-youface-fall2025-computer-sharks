@@ -1,9 +1,20 @@
 import flask
+import os
 
 from handlers import copy
 from db import users, helpers
+from werkzeug.utils import secure_filename
+from PIL import Image
 
 blueprint = flask.Blueprint("profile", __name__)
+UPLOAD_FOLDER = 'static/uploads/profile_pics'
+ALLOWED_EXTENSIONS = {'png','jpg','jpeg'}
+MAX_FILE_SIZE = 5 * 1024 * 1024 #5MB file size
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)
+
+[1].lower() in ALLOWED_EXTENSIONS
 
 @blueprint.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
