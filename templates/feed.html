@@ -20,6 +20,32 @@
       </div>
     </div>
 
+    <div class="card bg-light mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Search For Users</h3>
+        <form method="post" action="/searchUser">
+          <div class="form-group">
+            <input type="text" class="form-control" name="searchName" placeholder="username" />
+            <label for="searchName">Results:</label>
+            {% if search_results is defined %}
+            {% if search_results %}
+            <ul class="list-unstyled mt-2">
+              {% for r in search_results %}
+              <li>
+                <a href="{{ url_for('friends.view_friend', fname=r.username) }}">{{ r.username }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <div id="searchResults" class="mt-2 text-muted">No results found.</div>
+            {% endif %}
+            {% endif %}
+          </div>
+          <button type="submit" class="form-control btn btn-primary" name="searchUser">Submit</button>
+        </form>
+      </div>
+    </div>
+
     <h2 class="">My Feed</h2>
     {% for post in posts %}
     <div class="card bg-light">
@@ -49,17 +75,17 @@
       <div class="card-body">
         <h3 class="card-title">My Friends</h3>
         {% if friends %}
-          <ul>
-            {% for friend in friends %}
-              <li><a href="/friend/{{ friend.username }}">{{ friend.username }}</a></li>
-            {% endfor %}
-          </ul>
+        <ul>
+          {% for friend in friends %}
+          <li><a href="/friend/{{ friend.username }}">{{ friend.username }}</a></li>
+          {% endfor %}
+        </ul>
         {% else %}
-          <p class="card-text">
-            Sorry, no friends!
-          </p>
+        <p class="card-text">
+          Sorry, no friends!
+        </p>
         {% endif %}
       </div>
     </div>
   </div>
-{% endblock %}
+  {% endblock %}
