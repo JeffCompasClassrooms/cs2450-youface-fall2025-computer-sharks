@@ -1,3 +1,6 @@
 flask
 tinydb
 timeago
+selenium
+pytest
+webdriver_manager
