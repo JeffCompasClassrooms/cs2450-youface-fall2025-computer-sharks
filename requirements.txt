@@ -3,4 +3,4 @@ tinydb
 timeago
 selenium
 pytest
-webdriver_manager
+webdriver-manager
