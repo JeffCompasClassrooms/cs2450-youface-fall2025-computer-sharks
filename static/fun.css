@@ -1,0 +1,147 @@
+
+
+body {
+  background: linear-gradient(135deg, #ff0000 0%, #00bfff 50%, #ffff00 100%);
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  color: #222;
+}
+/* 🌙 DARK MODE STYLING */
+body.dark-mode {
+  background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%);
+  color: #eee;
+}
+
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, #222 0%, #333 50%, #111 100%);
+  box-shadow: 0 2px 16px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .navbar-brand {
+  color: #ffcc00 !important;
+  text-shadow: 0 0 10px #12300;
+}
+
+body.dark-mode .card {
+  background: #223;
+  border: 2px solid #55;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #222;
+}
+
+body.dark-mode .btn {
+  border: 2px solid #ffcc00;
+  background: #444;
+  color: #ffcc00;
+}
+
+body.dark-mode .btn:hover {
+  background: #ffcc00;
+  color: #222;
+}
+
+.card {
+  background: linear-gradient(145deg, #fff9c4, #ffe0b2);
+  border-radius: 25px;
+  border: 4px dashed #ff0000;
+  box-shadow: 0 6px 30px rgba(255, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 40px rgba(0, 191, 255, 0.5);
+}
+
+legend {
+  color: #ff0000;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px #ffff00;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #00bfff 0%, #ff0000 50%, #00ff00 100%);
+  box-shadow: 0 2px 16px rgba(0, 191, 255, 0.3);
+}
+
+
+
+.navbar-brand {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ffff00 !important;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 10px #ff0000, 0 0 8px #00bfff;
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+
+
+.btn-secondary {
+  background: #ff0000;
+  border: 2px dashed #00ff00;
+  color: #ffff00;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+  box-shadow: 0 2px 12px rgba(255, 0, 0, 0.2);
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+.btn-secondary:hover {
+  background: #00bfff;
+  color: #ff0000;
+  border: 2px solid #ffff00;
+}
+
+
+
+.jumbotron {
+  background: repeating-linear-gradient(45deg, #ffff00, #ffff00 20px, #00ff00 20px, #00ff00 40px);
+  border-radius: 2rem;
+  box-shadow: 0 4px 40px rgba(0, 191, 255, 0.25);
+  padding: 2.5rem 1.5rem;
+  margin-top: 2rem;
+  border: 4px dotted #ff0000;
+}
+
+
+
+h1 a {
+  color: #00bfff;
+  text-decoration: underline wavy #ff0000;
+  font-size: 2.7rem;
+  font-weight: 900;
+  transition: color 0.3s;
+  text-shadow: 2px 2px 12px #ffff00, 0 0 8px #00ff00;
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+h1 a:hover {
+  color: #ff0000;
+}
+
+
+
+.alert {
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 16px rgba(0, 191, 255, 0.15);
+  background: linear-gradient(90deg, #ff0000 0%, #00ff00 50%, #ffff00 100%);
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #00bfff;
+}
+
+
+
+.container {
+  animation: bounceIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}

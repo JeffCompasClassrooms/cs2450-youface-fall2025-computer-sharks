@@ -6,9 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='youface.css') }}" type="text/css">
   </head>
+
   <body>
     <div class="container mt-5">
       <h2>Edit Profile</h2>
+
+      <!-- ✅ Flash message section -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           {% for category, message in messages %}
@@ -16,21 +19,50 @@
           {% endfor %}
         {% endif %}
       {% endwith %}
-      <form method="POST" action="/profile">
+
+      <!-- ✅ Upload photo form -->
+      <form action="{{ url_for('profile.upload_photo') }}" method="POST" enctype="multipart/form-data" class="mt-3">
+        <label for="photo">Upload a new clown photo 🤡:</label>
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit" class="btn btn-warning">Upload</button>
+      </form>
+
+      <div class="mt-4">
+        <h4>Your Photos 🎟️</h4>
+        <div class="d-flex flex-wrap gap-3">
+          {% for filename in photos %}
+            <img src="{{ url_for('static', filename='uploads/' + user.username + '/' + filename) }}"
+                 class="img-thumbnail"
+                 style="width:150px;height:150px;object-fit:cover;">
+          {% else %}
+            <p>No clown photos yet!</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- ✅ Edit profile form -->
+      <form method="POST" action="{{ url_for('profile.edit_profile') }}" class="mt-4">
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+          <input type="text" class="form-control" id="username" name="username"
+                 value="{{ user.username }}" readonly>
         </div>
+
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+          <input type="email" class="form-control" id="email" name="email"
+                 value="{{ user.email }}">
         </div>
+
         <div class="form-group">
           <label for="bio">Bio</label>
           <textarea class="form-control" id="bio" name="bio" rows="3">{{ user.bio }}</textarea>
         </div>
+
         <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
     </div>
   </body>
 </html>
+
+

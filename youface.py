@@ -5,10 +5,10 @@ import time
 import flask
 import timeago
 import tinydb
-
+import os
 # handlers
 from handlers import friends, login, posts, profile
-
+from werkzeug.utils import secure_filename
 app = flask.Flask(__name__)
 
 @app.template_filter('convert_time')
@@ -24,7 +24,10 @@ app.register_blueprint(profile.blueprint)
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.run(debug=True, host='0.0.0.0', port=5005)
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB limit
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.run(debug=True, host='0.0.0.0', port=5005) 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5005, debug=False, use_reloader=False, threaded=True)
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
