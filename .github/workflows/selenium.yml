@@ -1,4 +1,4 @@
-name: Run Selenium Tests
+name: Selenium UI Tests
 
 on:
   push:
@@ -12,36 +12,43 @@ jobs:
   selenium-tests:
     runs-on: ubuntu-latest
 
+    services:
+      # Optional: Database or Redis, add if needed
+      # db:
+      #   image: postgres:latest
+      #   ports: ['5432:5432']
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install selenium pytest flask webdriver-manager
 
-      - name: Start Flask app (background)
-        run: |
-          export FLASK_APP=profile.py
-          nohup flask run --host=0.0.0.0 --port=5005 &
-          sleep 5  # give Flask time to start
-
-      - name: Run Selenium tests
-        run: |
-          pytest -s test_edit_profile_pretty.py
-          python3 searchUsers_tests.py
-          python3 selenium_example.py
-
-      - name: Archive test logs (optional)
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Install Chrome & Chromedriver
+        uses: browser-actions/setup-chrome@v1
         with:
-          name: selenium-test-logs
-          path: ./pytest*.log
+          chrome-version: stable
+
+      - name: Start Flask App
+        env:
+          FLASK_APP: app.py
+          FLASK_ENV: testing
+        run: |
+          nohup flask run --host=0.0.0.0 --port=5005 &
+          sleep 5
+
+      - name: Run Selenium Tests
+        env:
+          PYTHONPATH: .
+        run: |
+          pytest -s -v test_edit_profile_pretty.py
 
