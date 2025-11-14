@@ -33,4 +33,8 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     app.run(host="0.0.0.0", port=5005, debug=False, use_reloader=False,threaded=True)
+=======
+    app.run(host="0.0.0.0", port=5005, debug=False, use_reloader=False, threaded=True)
+>>>>>>> 21fad2505939bb4dfd2f57af2ef5564b15917ed7
