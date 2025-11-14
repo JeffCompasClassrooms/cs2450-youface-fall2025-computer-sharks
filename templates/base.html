@@ -14,9 +14,12 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
           <a class="navbar-brand fw-bold" href="/">🎪 OnlyClowns</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+	  <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-auto">🌙 Dark Mode</button>
 
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
@@ -62,5 +65,29 @@
         {% block content %}
         {% endblock %}
       </div>
+      <script>
+  const toggleButton = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  // Load preference from localStorage
+  if (localStorage.getItem('dark-mode') === 'enabled') {
+    body.classList.add('dark-mode');
+    toggleButton.textContent = '☀️ Light Mode';
+  }
+
+  toggleButton.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // Save preference
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('dark-mode', 'enabled');
+      toggleButton.textContent = '☀️ Light Mode';
+    } else {
+      localStorage.setItem('dark-mode', 'disabled');
+      toggleButton.textContent = '🌙 Dark Mode';
+    }
+  });
+</script>
+
     </body>
 </html>

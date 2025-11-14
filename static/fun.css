@@ -5,6 +5,39 @@ body {
   font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
   color: #222;
 }
+/* 🌙 DARK MODE STYLING */
+body.dark-mode {
+  background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%);
+  color: #eee;
+}
+
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, #222 0%, #333 50%, #111 100%);
+  box-shadow: 0 2px 16px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .navbar-brand {
+  color: #ffcc00 !important;
+  text-shadow: 0 0 10px #12300;
+}
+
+body.dark-mode .card {
+  background: #223;
+  border: 2px solid #55;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #222;
+}
+
+body.dark-mode .btn {
+  border: 2px solid #ffcc00;
+  background: #444;
+  color: #ffcc00;
+}
+
+body.dark-mode .btn:hover {
+  background: #ffcc00;
+  color: #222;
+}
 
 .card {
   background: linear-gradient(145deg, #fff9c4, #ffe0b2);
