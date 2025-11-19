@@ -1,5 +1,6 @@
 import flask
 
+from flask import Blueprint,request,redirect,url_for,flash,make_response
 from handlers import copy
 from db import posts, users, helpers
 
@@ -34,12 +35,9 @@ def login():
 
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
-
-    resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
-    resp.set_cookie('username', username)
-    resp.set_cookie('password', password)
-
     submit = flask.request.form.get('type')
+    resp = make_response(redirect(url_for('profile.edit_profile', username=username)))
+
     if submit == 'Create':
         shoe_size = flask.request.form.get('shoe_size', 0)
         has_horn = flask.request.form.get('has_clown_horns', 'false').lower() == 'true'
@@ -50,17 +48,37 @@ def login():
             shoe_size = 0
 
         if users.new_user(db, username, password) is None:
+            resp = make_response(redirect(url_for('login.loginscreen')))
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
-            flask.flash('Username {} already taken!'.format(username), 'danger')
-            return flask.redirect(flask.url_for('login.loginscreen'))
-        flask.flash('User {} created successfully!'.format(username), 'success')
+            flask.flash(f'Username {username} already taken!', 'danger')
+            return resp 
+            
+        flask.flash(f'User {username} created successfully!', 'success')
     elif submit == 'Delete':
         if users.delete_user(db, username, password):
+            resp = make_response(redirect(url_for('login.loginscreen')))
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
-            flask.flash('User {} deleted successfully!'.format(username), 'success')
+            flask.flash(f'User {username} deleted successfully!', 'success')
+            return resp
+        else:
+            flask.flash('Delete failed: wrong username or password.','danger')
+            return redirect(url_for('login.loginscreen'))
+    user = users.get_user(db, username, password)
+    if not user:
+        # Invalid credentials → clear cookies and redirect
+        resp = make_response(redirect(url_for('login.loginscreen')))
+        resp.set_cookie('username', '', expires=0)
+        resp.set_cookie('password', '', expires=0)
+        flash('Incorrect username or password!', 'danger')
+        return resp
 
+    # ---- SUCCESSFUL LOGIN ----
+    # Set cookies for logged-in user
+    resp.set_cookie('username', username)
+    resp.set_cookie('password', password)
+    flash(f'Logged in as {username}', 'success')
     return resp
 
 @blueprint.route('/logout', methods=['POST'])

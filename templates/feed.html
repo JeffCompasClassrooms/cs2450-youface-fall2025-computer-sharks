@@ -1,91 +1,20 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="row justify-content-md-center mb-4">
-  <h1 class="">Welcome, {{username}}!</h1>
+{%extends "base.html" %}
+{%block title %}YouFace Feed{% endblock %}
+{%block content %}
+<div class="card post-card">
+    <div class="card-header">
+        <img src="https://via.placeholder.com/40" alt="User Avatar">
+        <strong>@youface_user1</strong>
+    </div>
+    <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="Post Image">
+    <div class="card-body">
+        <div class="post-actions">
+            <span>❤️</span>
+            <span>💬</span>
+            <span>🔗</span>
+        </div>
+        <p><strong>@youface_user1</strong> Sample post text for YouFace!</p>
+    </div>
 </div>
+{% endblock %}
 
-<div class="row justify-content-md-center">
-
-  <div class="col col-lg-8">
-    <div class="card bg-light mb-3">
-      <div class="card-body">
-        <h3 class="card-title">New Post</h3>
-        <form method="post" action="/post">
-          <div class="form-group">
-            <textarea class="form-control" name="post" rows="3" placeholder="What's on your mind?"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" name="post-submit">Submit</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="card bg-light mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Search For Users</h3>
-        <form method="post" action="/searchUser">
-          <div class="form-group">
-            <input type="text" class="form-control" name="searchName" placeholder="username" />
-            <label for="searchName">Results:</label>
-            {% if search_results is defined %}
-            {% if search_results %}
-            <ul class="list-unstyled mt-2">
-              {% for r in search_results %}
-              <li>
-                <a href="{{ url_for('friends.view_friend', fname=r.username) }}">{{ r.username }}</a>
-              </li>
-              {% endfor %}
-            </ul>
-            {% else %}
-            <div id="searchResults" class="mt-2 text-muted">No results found.</div>
-            {% endif %}
-            {% endif %}
-          </div>
-          <button type="submit" class="form-control btn btn-primary" name="searchUser">Submit</button>
-        </form>
-      </div>
-    </div>
-
-    <h2 class="">My Feed</h2>
-    {% for post in posts %}
-    <div class="card bg-light">
-      <div class="card-body">
-        <h4 class="card-title">{{ post.user }}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">{{ post.time|convert_time }}</h6>
-        <p class="card-text">{{ post.text }}</p>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-
-  <div class="col col-lg-3">
-    <div class="card bg-light mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Add Friend</h3>
-        <form method="post" action="/addfriend">
-          <div class="form-group mb-1">
-            <input type="text" class="form-control" name="name" placeholder="username" />
-          </div>
-          <button type="submit" class="form-control btn btn-primary" name="addfriend">Submit</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="card bg-light">
-      <div class="card-body">
-        <h3 class="card-title">My Friends</h3>
-        {% if friends %}
-        <ul>
-          {% for friend in friends %}
-          <li><a href="/friend/{{ friend.username }}">{{ friend.username }}</a></li>
-          {% endfor %}
-        </ul>
-        {% else %}
-        <p class="card-text">
-          Sorry, no friends!
-        </p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endblock %}

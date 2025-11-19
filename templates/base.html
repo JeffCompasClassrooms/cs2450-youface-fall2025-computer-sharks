@@ -1,93 +1,109 @@
 <!DOCTYPE html>
-<html>
-    <head>
-      <meta charset="utf-8">
-      <title>OnlyClowns🤡</title>
-      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" type="text/css">
-      <link rel="stylesheet" href="{{ url_for('static', filename='youface.css') }}" type="text/css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='fun.css') }}" type="text/css">
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}OnlyClowns🤡{% endblock %}</title>
 
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="/">🎪 OnlyClowns</a>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='youface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fun.css') }}">
 
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('login.index') }}">🎪 OnlyClowns</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01">
             <span class="navbar-toggler-icon"></span>
-          </button>
+        </button>
 
-	  <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary ms-auto">🌙 Dark Mode</button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav ms-auto">
+                <!-- Home button -->
+                <li class="nav-item me-2">
+                    <a href="{{ url_for('login.index') }}" class="btn btn-primary btn-sm">Home</a>
+                </li>
 
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="https://utahtech.edu">Utah Tech</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1&ab_channel=RickAstley">Link 2</a>
-              </li>
+                {% if user %}
+                    <!-- Edit Profile -->
+                    <li class="nav-item me-2">
+                        <a href="{{ url_for('profile.edit_profile') }}" class="btn btn-secondary btn-sm">Edit Profile</a>
+                    </li>
+
+                    <!-- Find Friends -->
+                    <li class="nav-item me-2">
+                        <a href="{{ url_for('friends.find_friends') }}" class="btn btn-success btn-sm">Find Friends</a>
+                    </li>
+
+                    <!-- Logout -->
+                    <li class="nav-item">
+                        <form method="post" action="/logout" class="d-inline">
+                            <button type="submit" class="btn btn-secondary btn-sm">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <!-- Login -->
+                    <li class="nav-item">
+                        <a href="{{ url_for('login.loginscreen') }}" class="btn btn-light btn-sm">Login</a>
+                    </li>
+                {% endif %}
+
+                <!-- Dark/Light mode toggle -->
+                <li class="nav-item ms-2">
+                    <button id="darkModeToggle" class="btn btn-outline-secondary btn-sm">
+                        🌙 Dark Mode
+                    </button>
+                </li>
             </ul>
-            <ul class="navbar-nav pull-right">
-              {% if user %}
-              {% if user %}
-              <form method="post" action="/logout">
-                <button type="submit" class="form-control btn btn-secondary" name="logout">Logout</button>
-              </form>
-              {% endif %}
-              <a href="/profile" class="form-control btn btn-secondary">Edit Profile</a>
-                <button type="submit" class="form-control btn btn-secondary" name="logout">Logout</button>
-              </form>
-              {% endif %}
-              <a href="/profile" class="form-control btn btn-secondary">Edit Profile</a>
-            </ul>
-          </div>
         </div>
-      </nav>
+    </div>
+</nav>
 
-
-      <div class="container py-5">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
+<div class="container py-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
             {% for category, message in messages %}
-            <div class="alert alert-dismissible alert-{{ category }} fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
             {% endfor %}
-          {% endif %}
-        {% endwith %}
+        {% endif %}
+    {% endwith %}
 
-        {% block content %}
-        {% endblock %}
-      </div>
-      <script>
-  const toggleButton = document.getElementById('darkModeToggle');
-  const body = document.body;
+    {% block content %}{% endblock %}
+</div>
 
-  // Load preference from localStorage
-  if (localStorage.getItem('dark-mode') === 'enabled') {
-    body.classList.add('dark-mode');
-    toggleButton.textContent = '☀️ Light Mode';
-  }
+<!-- Dark mode script -->
+<script>
+    const toggleButton = document.getElementById('darkModeToggle');
+    const body = document.body;
 
-  toggleButton.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-
-    // Save preference
-    if (body.classList.contains('dark-mode')) {
-      localStorage.setItem('dark-mode', 'enabled');
-      toggleButton.textContent = '☀️ Light Mode';
-    } else {
-      localStorage.setItem('dark-mode', 'disabled');
-      toggleButton.textContent = '🌙 Dark Mode';
+    // Load saved preference
+    if (localStorage.getItem('dark-mode') === 'enabled') {
+        body.classList.add('dark-mode');
+        toggleButton.textContent = ' Light Mode';
     }
-  });
+
+    toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            toggleButton.textContent = ' Light Mode';
+        } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            toggleButton.textContent = '🌙 Dark Mode';
+        }
+    });
 </script>
 
-    </body>
+{% block scripts %}{% endblock %}
+</body>
 </html>
+

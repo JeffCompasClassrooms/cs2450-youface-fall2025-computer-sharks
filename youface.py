@@ -26,15 +26,10 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB limit
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-app.run(debug=True, host='0.0.0.0', port=5005) 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     app.run(host="0.0.0.0", port=5005, debug=False, use_reloader=False,threaded=True)
-=======
-    app.run(host="0.0.0.0", port=5005, debug=False, use_reloader=False, threaded=True)
->>>>>>> 21fad2505939bb4dfd2f57af2ef5564b15917ed7
