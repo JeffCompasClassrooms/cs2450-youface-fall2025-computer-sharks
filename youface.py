@@ -9,6 +9,9 @@ import os
 # handlers
 from handlers import friends, login, posts, profile
 from werkzeug.utils import secure_filename
+from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 app = flask.Flask(__name__)
 
 @app.template_filter('convert_time')
@@ -16,11 +19,21 @@ def convert_time(ts):
     """A jinja template helper to convert timestamps to timeago."""
     return timeago.format(ts, time.time())
 
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
+
 app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
 app.register_blueprint(profile.blueprint)
 
+# Apply specific rate limit to the login endpoint
+limiter.limit("5 per minute", per_method=True, methods=["POST"])(login.login)
+
+csrf = CSRFProtect(app)
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0

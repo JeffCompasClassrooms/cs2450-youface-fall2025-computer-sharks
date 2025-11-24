@@ -6,6 +6,7 @@
     <!-- Login Section -->
     <div class="card card-body bg-light" id="login-section">
       <form method="post" action="/login">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <fieldset>
           <legend>Login</legend>
           <hr />
@@ -35,6 +36,7 @@
     <!-- Create Account Section -->
     <div class="card card-body bg-light" id="create-section" style="display: none;">
       <form method="post" action="/login">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <fieldset>
           <legend>Create Account</legend>
           <hr />

@@ -1,14 +1,18 @@
 import tinydb
+from werkzeug.security import generate_password_hash, check_password_hash
 
-def new_user(db, username, password, email=None, shoe_size=None, is_clown=False, has_clown_horns=False):
+def new_user(db, username, password, email= None, shoe_size=None, is_clown=False, has_clown_horns=False):
     users = db.table('users')
     User = tinydb.Query()
     if users.get(User.username == username):
         return None
+    
+    hashedPassword = generate_password_hash(password)
+
     user_record = {
             'username': username,
-            'password': password,
-            'email': email,
+            'password': hashedPassword,
+            'email' : email,
             'friends': [],
             'profile': {
             'shoe_size': shoe_size,
@@ -24,8 +28,13 @@ def get_all_users(db):
 def get_user(db, username, password):
     users = db.table('users')
     User = tinydb.Query()
-    return users.get((User.username == username) &
-            (User.password == password))
+    user =  users.get(User.username == username)
+
+    if not user:
+        return None
+    if check_password_hash(user['password'], password):
+        return user
+    return None
 
 def get_user_by_name(db, username):
     users = db.table('users')
@@ -34,9 +43,11 @@ def get_user_by_name(db, username):
 
 def delete_user(db, username, password):
     users = db.table('users')
-    User = tinydb.Query()
-    return users.remove((User.username == username) &
-            (User.password == password))
+
+    user = get_user(db, username, password)
+    if user:
+        return users.remove(doc_ids=[user.doc_id])
+    return False
 
 def add_user_friend(db, user, friend):
     users = db.table('users')

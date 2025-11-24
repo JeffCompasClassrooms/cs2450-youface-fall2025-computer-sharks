@@ -10,6 +10,7 @@
             <h5 class="card-title">Filter Your Choices</h5>
             <!-- This form now points to our new find_friends route -->
             <form action="{{ url_for('friends.find_friends') }}" method="GET" class="row g-3 align-items-end">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="col-md-4">
                     <label for="shoe_size" class="form-label">Minimum Shoe Size</label>
                     <!-- Pre-fills the input with the last submitted value -->
@@ -57,6 +58,7 @@
                         
                         <!-- Form to add this user as a friend -->
                         <form action="{{ url_for('friends.addfriend') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="name" value="{{ user.username }}">
                             <button type="submit" class="btn btn-success">Add Friend</button>
                         </form>

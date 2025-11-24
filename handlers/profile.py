@@ -1,6 +1,6 @@
 import os
 import flask
-from flask import Blueprint, request, redirect, url_for, flash, render_template, make_response, current_app
+from flask import Blueprint, request, redirect, url_for, flash, render_template, make_response, current_app, session
 from werkzeug.utils import secure_filename
 
 blueprint = Blueprint('profile', __name__)
@@ -18,10 +18,11 @@ def allowed_file(filename):
 # ---------------------------
 @blueprint.route('/profile', methods=['GET', 'POST'])
 def edit_profile():
-    username = request.cookies.get('username')
-    if not username:
-        flash("Please log in first!", "danger")
+    if 'username' not in session:
+        flash("Please log in first!", "warning")
         return redirect(url_for("login.loginscreen"))
+
+    username = session['username']
 
     # Create profile if it doesn't exist yet
     if username not in profiles:
@@ -46,11 +47,10 @@ def edit_profile():
             del profiles[username]
             user['username'] = new_username
 
-            # Update cookie
-            resp = make_response(redirect(url_for('profile.edit_profile')))
-            resp.set_cookie('username', new_username)
+            # Update session
+            session['username'] = new_username
             flash('Profile updated!', 'success')
-            return resp
+            return redirect(url_for('profile.edit_profile'))
 
         flash('Profile updated!', 'success')
         return redirect(url_for('profile.edit_profile'))
@@ -63,11 +63,11 @@ def edit_profile():
 # ---------------------------
 @blueprint.route('/upload_photo', methods=['POST'])
 def upload_photo():
-    username = request.cookies.get('username')
-
-    if not username:
-        flash("Please log in first!", "danger")
+    if 'username' not in session:
+        flash("Please log in first!", "warning")
         return redirect(url_for("login.loginscreen"))
+
+    username = session['username']
 
     if username not in profiles:
         flash("User profile not found!", "danger")
