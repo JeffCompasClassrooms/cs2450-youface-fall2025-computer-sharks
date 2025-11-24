@@ -39,15 +39,16 @@ def login():
     resp = make_response(redirect(url_for('profile.edit_profile', username=username)))
 
     if submit == 'Create':
+        email = flask.request.form.get('email', '')
         shoe_size = flask.request.form.get('shoe_size', 0)
-        has_horn = flask.request.form.get('has_clown_horns', 'false').lower() == 'true'
+        has_horn = flask.request.form.get('has_horn', 'false').lower() == 'true'
 
         try:
             shoe_size = int(shoe_size)
         except ValueError:
             shoe_size = 0
 
-        if users.new_user(db, username, password) is None:
+        if users.new_user(db, username, password, email=email, shoe_size=shoe_size, has_clown_horns=has_horn) is None:
             resp = make_response(redirect(url_for('login.loginscreen')))
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
