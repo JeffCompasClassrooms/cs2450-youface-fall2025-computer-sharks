@@ -1,6 +1,6 @@
 import flask
 
-from flask import flash
+from flask import flash, session
 from handlers import copy
 from db import posts, users, helpers
 
@@ -9,10 +9,12 @@ blueprint = flask.Blueprint("friends", __name__)
 @blueprint.route('/find-friends')
 def find_friends():
     db = helpers.load_db()
-    username = flask.request.cookies.get('username')
-    if not username:
-        flask.flash('You need to be logged in to find friends.','warning')
+
+    if 'username' not in session:
+        flask.flash('You need to be logged in to find friends.', 'warning')
         return flask.redirect(flask.url_for('login.loginscreen'))
+
+    username = session['username']
     all_users = users.get_all_users(db)
      # Get the filter criteria from the form submission (from the URL)
     min_shoe_size_str = flask.request.args.get('shoe_size')
@@ -61,15 +63,15 @@ def addfriend():
     db = helpers.load_db()
 
     # make sure the user is logged in
-    username = flask.request.cookies.get('username')
-    password = flask.request.cookies.get('password')
-
-    if username is None and password is None:
+    if 'username' not in session:
+        flash('Please log in first.', 'warning')
         return flask.redirect(flask.url_for('login.loginscreen'))
 
-    user = users.get_user(db, username, password)
+    username = session['username']
+    user = users.get_user_by_name(db, username)
     if not user:
-        flash('You need to be logged in to do that.', 'danger')
+        flash('Invalid session. Please log in again.', 'danger')
+        session.clear()
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     # add the friend
@@ -80,20 +82,20 @@ def addfriend():
     return flask.redirect(flask.url_for('login.index'))
 
 @blueprint.route('/searchUser', methods=['POST'])
-@blueprint.route('/searchUser', methods=['POST'])
 def searchUser():
     """Search users (case-insensitive substring) and render the feed with results."""
     db = helpers.load_db()
 
     # make sure the user is logged in
-    username = flask.request.cookies.get('username')
-    password = flask.request.cookies.get('password')
-    if username is None and password is None:
+    if 'username' not in session:
+        flask.flash('Please log in first.', 'warning')
         return flask.redirect(flask.url_for('login.loginscreen'))
 
-    user = users.get_user(db, username, password)
+    username = session['username']
+    user = users.get_user_by_name(db, username)
     if not user:
-        flask.flash('You need to be logged in to do that.', 'danger')
+        flask.flash('Invalid session. Please log in again.', 'danger')
+        session.clear()
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     # read the same form field name you have in the template
@@ -128,12 +130,15 @@ def unfriend():
     """Removes a user from the user's friends list."""
     db = helpers.load_db()
 
-    username = flask.request.cookies.get('username')
-    password = flask.request.cookies.get('password')
+    if 'username' not in session:
+        flask.flash('Please log in first.', 'warning')
+        return flask.redirect(flask.url_for('login.loginscreen'))
 
-    user = users.get_user(db, username, password)
+    username = session['username']
+    user = users.get_user_by_name(db, username)
     if not user:
-        flask.flash('You need to be logged in to do that.', 'danger')
+        flask.flash('Invalid session. Please log in again.', 'danger')
+        session.clear()
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     name = flask.request.form.get('name')
@@ -147,12 +152,15 @@ def view_friend(fname):
     """View the page of a given friend."""
     db = helpers.load_db()
 
-    username = flask.request.cookies.get('username')
-    password = flask.request.cookies.get('password')
+    if 'username' not in session:
+        flask.flash('Please log in first.', 'warning')
+        return flask.redirect(flask.url_for('login.loginscreen'))
 
-    user = users.get_user(db, username, password)
+    username = session['username']
+    user = users.get_user_by_name(db, username)
     if not user:
-        flask.flash('You must be logged in to do that.', 'danger')
+        flask.flash('Invalid session. Please log in again.', 'danger')
+        session.clear()
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     friend = users.get_user_by_name(db, fname)

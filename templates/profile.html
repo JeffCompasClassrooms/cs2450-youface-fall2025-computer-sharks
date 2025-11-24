@@ -5,6 +5,7 @@
 
   <!-- ✅ Upload photo form -->
   <form action="{{ url_for('profile.upload_photo') }}" method="POST" enctype="multipart/form-data" class="mt-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <label for="photo">Upload a new clown photo 🤡:</label>
     <input type="file" name="photo" accept="image/*" required>
     <button type="submit" class="btn btn-warning">Upload</button>
@@ -24,6 +25,7 @@
 
   <!-- ✅ Edit profile form -->
   <form method="POST" action="{{ url_for('profile.edit_profile') }}" class="mt-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" name="username" id="username" value="{{ user.username }}" readonly>

@@ -2,6 +2,7 @@
 {%block title %}YouFace Feed{% endblock %}
 {%block content %}
 <div class="card post-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="card-header">
         <img src="https://via.placeholder.com/40" alt="User Avatar">
         <strong>@youface_user1</strong>
