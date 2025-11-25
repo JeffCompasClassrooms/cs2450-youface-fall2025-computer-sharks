@@ -1,5 +1,6 @@
 import flask
 
+from flask import session
 from db import posts, users, helpers
 
 blueprint = flask.Blueprint("posts", __name__)
@@ -9,12 +10,15 @@ def post():
     """Creates a new post."""
     db = helpers.load_db()
 
-    username = flask.request.cookies.get('username')
-    password = flask.request.cookies.get('password')
+    if 'username' not in session:
+        flask.flash('Please log in first.', 'warning')
+        return flask.redirect(flask.url_for('login.loginscreen'))
 
-    user = users.get_user(db, username, password)
+    username = session['username']
+    user = users.get_user_by_name(db, username)
     if not user:
-        flask.flash('You need to be logged in to do that.', 'danger')
+        flask.flash('Invalid session. Please log in again.', 'danger')
+        session.clear()
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     post = flask.request.form.get('post')

@@ -1,4 +1,24 @@
-{% extends "base.html" %}
+
+{%extends "base.html" %}
+{%block title %}YouFace Feed{% endblock %}
+{%block content %}
+<div class="card post-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="card-header">
+        <img src="https://via.placeholder.com/40" alt="User Avatar">
+        <strong>@youface_user1</strong>
+    </div>
+    <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="Post Image">
+    <div class="card-body">
+        <div class="post-actions">
+            <span>❤️</span>
+            <span>💬</span>
+            <span>🔗</span>
+        </div>
+        <p><strong>@youface_user1</strong> Sample post text for YouFace!</p>
+    </div>
+</div>
+{% endblock %}
 
 {% block title %}Feed - YouFace{% endblock %}
 
