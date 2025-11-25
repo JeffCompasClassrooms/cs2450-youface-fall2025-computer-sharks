@@ -10,11 +10,30 @@ import os
 from handlers import friends, login, posts, profile
 from werkzeug.utils import secure_filename
 app = flask.Flask(__name__)
+from datetime import datetime
 
 @app.template_filter('convert_time')
 def convert_time(ts):
     """A jinja template helper to convert timestamps to timeago."""
     return timeago.format(ts, time.time())
+def timesince(dt):
+    now = datetime.utcnow()
+    diff = now - dt
+
+    seconds = diff.total_seconds()
+    minutes = seconds // 60
+    hours = minutes // 60 
+    days = diff.days 
+
+    if seconds < 60:
+        return f"{int(seconds)} seconds"
+    elif minutes < 60:
+        return f"{int(minutes)} minutes"
+    elif hours < 24:
+        return f"{int(hours)} hours"
+    else:
+        return f"{int(days)} days"
+app.jinja_env.filters['timesince'] = timesince
 
 app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
