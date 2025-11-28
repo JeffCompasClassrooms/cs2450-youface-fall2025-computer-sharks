@@ -37,6 +37,11 @@
     <div class="card card-body bg-light" id="create-section" style="display: none;">
       <form method="post" action="/login">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <!-- Honeypot field: hidden from users -->
+          <div style="display:none;">
+            <label for="are_you_a_bot">Are you a bot?</label>
+            <input type="text" id="are_you_a_bot" name="are_you_a_bot" autocomplete="off" value="">
+          </div>
         <fieldset>
           <legend>Create Account</legend>
           <hr />
@@ -94,6 +99,17 @@
     e.preventDefault();
     document.getElementById('create-section').style.display = 'none';
     document.getElementById('login-section').style.display = 'block';
+  });
+
+  //for honeypot
+  document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      var honeypot = form.querySelector('input#are_you_a_bot');
+      if (honeypot && honeypot.value.length !== 0) {
+        e.preventDefault();
+        alert("Submission rejected.");
+      }
+    });
   });
 </script>
 {% endblock %}

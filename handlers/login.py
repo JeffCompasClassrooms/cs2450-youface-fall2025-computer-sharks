@@ -30,10 +30,15 @@ def login():
     """
     db = helpers.load_db()
 
+    #Server-side honeypot check
+    if flask.request.form.get('are_you_a_bot'):
+        flask.flash('Submission rejected (bot detected).', 'danger')
+        return redirect(url_for('login.loginscreen'))
+
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
     submit = flask.request.form.get('type')
-    resp = make_response(redirect(url_for('profile.edit_profile', username=username)))
+    resp = make_response(redirect(url_for('profile.edit_profile', username=username)) )
 
     if submit == 'Create':
         email = flask.request.form.get('email', '')
