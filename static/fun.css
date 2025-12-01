@@ -1,11 +1,3 @@
-/* =========================================
-   1. CORE LAYOUT & TYPOGRAPHY
-   ========================================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body {
   /* Combined the font stacks here */
@@ -16,6 +8,7 @@ body {
   width: 100%;
   min-height: 100vh; /* Ensures background fills screen */
 }
+
 
 /* =========================================
    2. NAVIGATION BAR
@@ -182,10 +175,96 @@ legend {
 /* =========================================
    5. DARK MODE STYLING
    ========================================= */
+
+/* 🌙 DARK MODE STYLING */
 body.dark-mode {
   background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%);
   color: #eee;
 }
+
+
+/* Feed container adjustment to mimic Instagram layout */
+.container.py-5 {
+  max-width: 900px;
+  /* narrower feed like Instagram */
+  margin: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Post card improvements */
+.card.post-card {
+  border-radius: 20px;
+  /* your existing rounded corners */
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Post header (user info) */
+.card.post-card .card-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: inherit;
+  /* keep your gradient background */
+  border-bottom: none;
+}
+
+.card.post-card .card-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #fff;
+}
+
+/* Post image */
+.card.post-card img.card-img-top {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Action bar (like/comment/share) */
+.card.post-card .post-actions {
+  display: flex;
+  padding: 8px 15px;
+  font-size: 20px;
+  gap: 15px;
+}
+
+.card.post-card .post-actions span {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.card.post-card .post-actions span:hover {
+  color: #ffcc00;
+}
+
+/* Caption styling */
+.card.post-card .card-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Dark mode integration (compatible with your current dark-mode styles) */
+body.dark-mode .card.post-card {
+  background: #223;
+  /* your dark mode card background */
+  border: 2px solid #55;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #eee;
+}
+
+body.dark-mode .card.post-card .post-actions span:hover {
+  color: #1da1f2;
+}
+
+
+
 
 body.dark-mode .navbar {
   background: linear-gradient(90deg, #222 0%, #333 50%, #111 100%);
@@ -224,11 +303,151 @@ body.dark-mode .btn:hover {
 /* =========================================
    6. ANIMATIONS
    ========================================= */
-@keyframes bounceIn {
-  0% { opacity: 0; transform: scale(0.3); }
-  50% { opacity: 1; transform: scale(1.05); }
-  70% { transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+
+.card {
+  background: linear-gradient(145deg, #fff9c4, #ffe0b2);
+  border-radius: 25px;
+  border: 4px dashed #ff0000;
+  box-shadow: 0 6px 30px rgba(255, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 40px rgba(0, 191, 255, 0.5);
+}
+
+legend {
+  color: #ff0000;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px #ffff00;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #00bfff 0%, #ff0000 50%, #00ff00 100%);
+  box-shadow: 0 2px 16px rgba(0, 191, 255, 0.3);
+}
+
+
+
+.navbar-brand {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ffff00 !important;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 10px #ff0000, 0 0 8px #00bfff;
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+
+
+.btn-secondary {
+  background: #ff0000;
+  border: 2px dashed #00ff00;
+  color: #ffff00;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+  box-shadow: 0 2px 12px rgba(255, 0, 0, 0.2);
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+.btn-secondary:hover {
+  background: #00bfff;
+  color: #ff0000;
+  border: 2px solid #ffff00;
+}
+
+
+
+.jumbotron {
+  background: repeating-linear-gradient(45deg, #ffff00, #ffff00 20px, #00ff00 20px, #00ff00 40px);
+  border-radius: 2rem;
+  box-shadow: 0 4px 40px rgba(0, 191, 255, 0.25);
+  padding: 2.5rem 1.5rem;
+  margin-top: 2rem;
+  border: 4px dotted #ff0000;
+}
+
+
+
+h1 a {
+  color: #00bfff;
+  text-decoration: underline wavy #ff0000;
+  font-size: 2.7rem;
+  font-weight: 900;
+  transition: color 0.3s;
+  text-shadow: 2px 2px 12px #ffff00, 0 0 8px #00ff00;
+  font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+h1 a:hover {
+  color: #ff0000;
+}
+
+
+
+.alert {
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 16px rgba(0, 191, 255, 0.15);
+  background: linear-gradient(90deg, #ff0000 0%, #00ff00 50%, #ffff00 100%);
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #00bfff;
+}
+
+
+
+.container {
+  animation: bounceIn 1.2s cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* 🎪 MESSAGE BUTTON — OnlyClowns Style */
+.message-btn {
+  background: linear-gradient(90deg, #ff0066, #ffcc00, #33ccff);
+  background-size: 300% 300%;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 2px solid #ffffffaa;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  animation: clownGlow 6s ease infinite;
+}
+
+.message-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  filter: brightness(1.2);
+}
 
