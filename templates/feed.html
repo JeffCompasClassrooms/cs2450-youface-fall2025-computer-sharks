@@ -1,21 +1,110 @@
-{%extends "base.html" %}
-{%block title %}YouFace Feed{% endblock %}
-{%block content %}
-<div class="card post-card">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <div class="card-header">
-        <img src="https://via.placeholder.com/40" alt="User Avatar">
-        <strong>@youface_user1</strong>
-    </div>
-    <img src="https://via.placeholder.com/400x400" class="card-img-top" alt="Post Image">
-    <div class="card-body">
-        <div class="post-actions">
-            <span>❤️</span>
-            <span>💬</span>
-            <span>🔗</span>
-        </div>
-        <p><strong>@youface_user1</strong> Sample post text for YouFace!</p>
-    </div>
-</div>
-{% endblock %}
+{% extends "base.html" %}
+{% block title %}YouFace Feed{% endblock %}
+{% block content %}
 
+<div class="container mt-4">
+  <h2>{{ title or 'OnlyClowns Feed' }}</h2>
+
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white" style="border-top-left-radius: 20px;border-top-right-radius: 20px;">
+      <strong><i class="fas fa-plus-circle"></i> Create a New Post</strong>
+    </div>
+    <div class="card-body">
+      <form action="{{ url_for('posts.post') }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+        <div class="form-group">
+          <label for="caption"><i class="fas fa-pen"></i> Caption:</label>
+          <textarea class="form-control" id="caption" name="caption" rows="3" placeholder="Write a caption..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="image"><i class="fas fa-image"></i> Upload Image (optional):</label>
+          <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+          <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, GIF (max 5MB)</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Post
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="posts-container">
+    {% if posts %}
+      {% for post in posts %}
+      <div class="card post-card mb-4">
+        <div class="card-header">
+          <strong>@{{ post.user }}</strong>
+          <small class="text-muted float-right">{{ post.time | int }}</small>
+        </div>
+
+        {% if post.image %}
+        <img src="{{ post.image }}" class="card-img-top" alt="Post Image" style="max-height: 500px; object-fit: cover;">
+        {% endif %}
+
+        <div class="card-body">
+          {% if post.text %}
+          <p class="card-text"><strong>@{{ post.user }}</strong> {{ post.text }}</p>
+          {% endif %}
+
+          <div class="post-actions mt-3">
+            <span style="cursor: pointer;" title="Like">
+              <i class="far fa-heart"></i>
+            </span>
+            <span style="cursor: pointer;" title="Comment">
+              <i class="far fa-comment"></i>
+            </span>
+            <span style="cursor: pointer;" title="Share">
+              <i class="fas fa-share"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-info">
+        <p>No posts yet! Be the first to post something or add some friends to see their posts.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.post-card {
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-card .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.post-actions span {
+  margin-right: 20px;
+  font-size: 1.3em;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.post-actions span:hover {
+  color: #007bff;
+}
+
+.post-actions span:hover .fa-heart {
+  color: #e74c3c;
+}
+
+.post-actions span:hover .fa-comment {
+  color: #3498db;
+}
+
+.post-actions span:hover .fa-share {
+  color: #2ecc71;
+}
+</style>
+
+{% endblock %}
