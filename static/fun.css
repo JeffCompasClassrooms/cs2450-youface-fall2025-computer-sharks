@@ -1,89 +1,93 @@
-
-
 body {
   background: linear-gradient(135deg, #ff0000 0%, #00bfff 50%, #ffff00 100%);
   font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
   color: #222;
 }
+
 /* 🌙 DARK MODE STYLING */
 body.dark-mode {
   background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%);
   color: #eee;
 }
+
 /* Feed container adjustment to mimic Instagram layout */
 .container.py-5 {
-    max-width: 900px; /* narrower feed like Instagram */
-    margin: auto;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  max-width: 900px;
+  /* narrower feed like Instagram */
+  margin: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* Post card improvements */
 .card.post-card {
-    border-radius: 20px; /* your existing rounded corners */
-    overflow: hidden;
-    margin-bottom: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 20px;
+  /* your existing rounded corners */
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Post header (user info) */
 .card.post-card .card-header {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    background: inherit; /* keep your gradient background */
-    border-bottom: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: inherit;
+  /* keep your gradient background */
+  border-bottom: none;
 }
 
 .card.post-card .card-header img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #fff;
 }
 
 /* Post image */
 .card.post-card img.card-img-top {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }
 
 /* Action bar (like/comment/share) */
 .card.post-card .post-actions {
-    display: flex;
-    padding: 8px 15px;
-    font-size: 20px;
-    gap: 15px;
+  display: flex;
+  padding: 8px 15px;
+  font-size: 20px;
+  gap: 15px;
 }
 
 .card.post-card .post-actions span {
-    cursor: pointer;
-    transition: color 0.2s;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .card.post-card .post-actions span:hover {
-    color: #ffcc00;
+  color: #ffcc00;
 }
 
 /* Caption styling */
 .card.post-card .card-body p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 /* Dark mode integration (compatible with your current dark-mode styles) */
 body.dark-mode .card.post-card {
-    background: #223; /* your dark mode card background */
-    border: 2px solid #55;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    color: #eee;
+  background: #223;
+  /* your dark mode card background */
+  border: 2px solid #55;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #eee;
 }
 
 body.dark-mode .card.post-card .post-actions span:hover {
-    color: #1da1f2;
+  color: #1da1f2;
 }
 
 
@@ -164,6 +168,7 @@ legend {
   box-shadow: 0 2px 12px rgba(255, 0, 0, 0.2);
   font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
+
 .btn-secondary:hover {
   background: #00bfff;
   color: #ff0000;
@@ -192,6 +197,7 @@ h1 a {
   text-shadow: 2px 2px 12px #ffff00, 0 0 8px #00ff00;
   font-family: 'Fredoka One', 'Baloo', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
+
 h1 a:hover {
   color: #ff0000;
 }
@@ -211,14 +217,51 @@ h1 a:hover {
 
 
 .container {
-  animation: bounceIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+  animation: bounceIn 1.2s cubic-bezier(.68, -0.55, .27, 1.55);
 }
 
 
 
 @keyframes bounceIn {
-  0% { opacity: 0; transform: scale(0.3); }
-  50% { opacity: 1; transform: scale(1.05); }
-  70% { transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🎪 MESSAGE BUTTON — OnlyClowns Style */
+.message-btn {
+  background: linear-gradient(90deg, #ff0066, #ffcc00, #33ccff);
+  background-size: 300% 300%;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 2px solid #ffffffaa;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  animation: clownGlow 6s ease infinite;
+}
+
+.message-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  filter: brightness(1.2);
 }

@@ -7,7 +7,7 @@ import timeago
 import tinydb
 import os
 # handlers
-from handlers import friends, login, posts, profile
+from handlers import friends, login, posts, profile, messages
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
@@ -29,6 +29,7 @@ app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
 app.register_blueprint(profile.blueprint)
+app.register_blueprint(messages.blueprint)
 
 # Apply specific rate limit to the login endpoint
 limiter.limit("5 per minute", per_method=True, methods=["POST"])(login.login)
@@ -40,6 +41,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB limit
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'} 
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
