@@ -38,7 +38,6 @@ def login():
     username = flask.request.form.get('username')
     password = flask.request.form.get('password')
     submit = flask.request.form.get('type')
-    resp = make_response(redirect(url_for('profile.edit_profile', username=username)) )
 
     if submit == 'Create':
         email = flask.request.form.get('email', '')
@@ -74,7 +73,7 @@ def login():
 
     session['username'] = username
     flash(f'Logged in as {username}', 'success')
-    return redirect(url_for('profile.edit_profile', username=username)) 
+    return redirect(url_for('login.index')) 
 
 @blueprint.route('/logout', methods=['POST'])
 def logout():

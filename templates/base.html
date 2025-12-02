@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}OnlyClowns🤡{% endblock %}</title>
+    <title>{% block title %}OnlyClowns{% endblock %}</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='youface.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='fun.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -18,7 +21,9 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ url_for('login.index') }}">🎪 OnlyClowns</a>
+        <a class="navbar-brand fw-bold" href="{{ url_for('login.index') }}">
+            <i class="fas fa-circle-notch"></i> OnlyClowns
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,38 +32,48 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Home button -->
                 <li class="nav-item me-2">
-                    <a href="{{ url_for('login.index') }}" class="btn btn-primary btn-sm">Home</a>
+                    <a href="{{ url_for('login.index') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-home"></i> Home
+                    </a>
                 </li>
 
                 {% if user %}
                     <!-- Edit Profile -->
                     <li class="nav-item me-2">
-                        <a href="{{ url_for('profile.edit_profile') }}" class="btn btn-secondary btn-sm">Edit Profile</a>
+                        <a href="{{ url_for('profile.edit_profile') }}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-user-edit"></i> Edit Profile
+                        </a>
                     </li>
 
                     <!-- Find Friends -->
                     <li class="nav-item me-2">
-                        <a href="{{ url_for('friends.find_friends') }}" class="btn btn-success btn-sm">Find Friends</a>
+                        <a href="{{ url_for('friends.find_friends') }}" class="btn btn-success btn-sm">
+                            <i class="fas fa-user-friends"></i> Find Friends
+                        </a>
                     </li>
 
                     <!-- Logout -->
                     <li class="nav-item">
                         <form method="post" action="/logout" class="d-inline">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                            <button type="submit" class="btn btn-secondary btn-sm">Logout</button>
+                            <button type="submit" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
                         </form>
                     </li>
                 {% else %}
                     <!-- Login -->
                     <li class="nav-item">
-                        <a href="{{ url_for('login.loginscreen') }}" class="btn btn-light btn-sm">Login</a>
+                        <a href="{{ url_for('login.loginscreen') }}" class="btn btn-light btn-sm">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
                     </li>
                 {% endif %}
 
                 <!-- Dark/Light mode toggle -->
                 <li class="nav-item ms-2">
                     <button id="darkModeToggle" class="btn btn-outline-secondary btn-sm">
-                        🌙 Dark Mode
+                        <i class="fas fa-moon"></i> Dark Mode
                     </button>
                 </li>
             </ul>
@@ -89,17 +104,17 @@
     // Load saved preference
     if (localStorage.getItem('dark-mode') === 'enabled') {
         body.classList.add('dark-mode');
-        toggleButton.textContent = ' Light Mode';
+        toggleButton.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
     }
 
     toggleButton.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
         if (body.classList.contains('dark-mode')) {
             localStorage.setItem('dark-mode', 'enabled');
-            toggleButton.textContent = ' Light Mode';
+            toggleButton.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
         } else {
             localStorage.setItem('dark-mode', 'disabled');
-            toggleButton.textContent = '🌙 Dark Mode';
+            toggleButton.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
         }
     });
 </script>

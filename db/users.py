@@ -17,7 +17,9 @@ def new_user(db, username, password, email= None, shoe_size=None, is_clown=False
             'profile': {
             'shoe_size': shoe_size,
             'is_clown':is_clown,
-            'has_clown_horns': has_clown_horns
+            'has_clown_horns': has_clown_horns,
+            'bio': '',
+            'photos': []
             }
             }
     return users.insert(user_record)
@@ -78,6 +80,39 @@ def get_user_friends(db, user):
     for friend in user['friends']:
         friends.append(users.get(User.username == friend))
     return friends
+
+def update_user_profile(db, username, bio=None, email=None):
+    """Update user's bio and/or email"""
+    users = db.table('users')
+    User = tinydb.Query()
+    user = users.get(User.username == username)
+
+    if not user:
+        return False
+
+    if bio is not None:
+        user['profile']['bio'] = bio
+    if email is not None:
+        user['email'] = email
+
+    users.update(user, User.username == username)
+    return True
+
+def add_user_photo(db, username, photo_path):
+    """Add a photo path to user's profile"""
+    users = db.table('users')
+    User = tinydb.Query()
+    user = users.get(User.username == username)
+
+    if not user:
+        return False
+
+    if 'photos' not in user['profile']:
+        user['profile']['photos'] = []
+
+    user['profile']['photos'].append(photo_path)
+    users.update(user, User.username == username)
+    return True
 
 
 
