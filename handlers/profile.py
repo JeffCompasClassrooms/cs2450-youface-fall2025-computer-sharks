@@ -2,10 +2,11 @@ import os
 import flask
 from flask import Blueprint, request, redirect, url_for, flash, render_template, make_response, current_app, session
 from werkzeug.utils import secure_filename
-from db.helpers import load_db
-from db.users import get_user_by_name, update_user_profile, add_user_photo
 
 blueprint = Blueprint('profile', __name__)
+
+# In-memory user profiles
+profiles = {}
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -22,35 +23,39 @@ def edit_profile():
         return redirect(url_for("login.loginscreen"))
 
     username = session['username']
-    db = load_db()
-    user = get_user_by_name(db, username)
 
-    if not user:
-        flash("User not found!", "danger")
-        return redirect(url_for("login.loginscreen"))
+    # Create profile if it doesn't exist yet
+    if username not in profiles:
+        profiles[username] = {
+            "username": username,
+            "bio": "",
+            "email": "",
+            "photos": []
+        }
+
+    user = profiles[username]
 
     if request.method == 'POST':
-        # Get form data
-        bio = request.form.get('bio', '')
-        email = request.form.get('email', '')
+        # Update user data
+        new_username = request.form.get('username', user['username'])
+        user['bio'] = request.form.get('bio', user['bio'])
+        user['email'] = request.form.get('email', user['email'])
 
-        # Update profile in database
-        if update_user_profile(db, username, bio=bio, email=email):
+        # Handle username change
+        if new_username != username:
+            profiles[new_username] = user
+            del profiles[username]
+            user['username'] = new_username
+
+            # Update session
+            session['username'] = new_username
             flash('Profile updated!', 'success')
-        else:
-            flash('Failed to update profile!', 'danger')
+            return redirect(url_for('profile.edit_profile'))
 
+        flash('Profile updated!', 'success')
         return redirect(url_for('profile.edit_profile'))
 
-    # Prepare user data for template
-    user_data = {
-        'username': user['username'],
-        'email': user.get('email', ''),
-        'bio': user.get('profile', {}).get('bio', ''),
-        'photos': user.get('profile', {}).get('photos', [])
-    }
-
-    return render_template('profile.html', title='Edit Profile', user=user_data, photos=user_data['photos'])
+    return render_template('profile.html', title='Edit Profile', user=user, photos=user['photos'])
 
 
 # ---------------------------
@@ -63,16 +68,16 @@ def upload_photo():
         return redirect(url_for("login.loginscreen"))
 
     username = session['username']
-    db = load_db()
-    user = get_user_by_name(db, username)
 
-    if not user:
+    if username not in profiles:
         flash("User profile not found!", "danger")
         return redirect(url_for("profile.edit_profile"))
 
+    user = profiles[username]
+
     file = request.files.get('photo')
     if not file or not allowed_file(file.filename):
-        flash("Invalid file type! Please upload PNG, JPG, JPEG, or GIF.", "danger")
+        flash("Invalid file type!", "danger")
         return redirect(url_for('profile.edit_profile'))
 
     filename = secure_filename(file.filename)
@@ -82,11 +87,9 @@ def upload_photo():
     path = os.path.join(upload_folder, filename)
     file.save(path)
 
-    # Save photo path to database
-    photo_path = f"/static/uploads/{username}/{filename}"
-    if add_user_photo(db, username, photo_path):
-        flash("Photo uploaded successfully!", "success")
-    else:
-        flash("Failed to save photo!", "danger")
+    # Save to user's photo list
+    user["photos"].append(f"/static/uploads/{username}/{filename}")
 
+    flash("Photo uploaded!", "success")
     return redirect(url_for('profile.edit_profile'))
+
