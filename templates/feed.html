@@ -1,110 +1,394 @@
-{% extends "base.html" %}
-{% block title %}YouFace Feed{% endblock %}
-{% block content %}
 
-<div class="container mt-4">
-  <h2>{{ title or 'OnlyClowns Feed' }}</h2>
+{%extends "base.html" %}
+{%block title %}YouFace Feed{% endblock %}
+{%block content %}
 
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white" style="border-top-left-radius: 20px;border-top-right-radius: 20px;">
-      <strong><i class="fas fa-plus-circle"></i> Create a New Post</strong>
+<!-- Load FontAwesome for Instagram Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+</style>
+<style>
+    /* --- Instagram-like Feed Styles --- */
+    :root {
+        --border-color: #dbdbdb;
+        --bg-color: #fafafa;
+        --primary-text: #262626;
+        --secondary-text: #8e8e8e;
+    }
+
+    body {
+        background-color: var(--bg-color); 
+        /* Ensure base.html doesn't override this if possible, otherwise add !important */
+    }
+
+    .main-layout{
+        max-width: 470px;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    .stories-container {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px 0;
+        margin-bottom: 24px;
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+    .stories-container::-webkit-scrollbar {
+        display: none;
+    }
+    .story-item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        witdth: 66px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .story-ring {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        padding: 2px;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    .story-img {
+        width: 100%;
+        height: 100%;
+        border-radius:50%;
+        border: 2px solid #fff;
+        object-fit: cover;
+    }
+
+    .story-username {
+        font-size: 12px;
+        margin-top: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
+    }
+
+    .insta-post {
+        background: rgb(255, 255, 255);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin-bottom: 24px;
+        max-width: 600px;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .post-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-pic {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid solid #ddd;
+    }
+
+    .username {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--primary-text);
+        text-decoration: none;
+    }
+    
+    .username:hover {
+        text-decoration: underline;
+    }
+    .post-image-container {
+    width: 100%;
+    background: #000;}
+
+    .post-image { width: 100%; display: block; object-fit: contain;
+    max-height: 775px;}
+
+    .more-options {
+        cursor: pointer;
+        color: var(--primary-text);
+        font-size : 20px;
+    }
+
+
+    /* --- Actions (Like, Comment, Share) --- */
+    .post-actions {
+        padding: 10px 14px 4px 14px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+    }
+
+    .action-group {
+        display: flex;
+        gap: 14px;
+    }
+
+    .action-icon {
+        cursor: pointer;
+        color: var(--primary-text);
+        transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    }
+
+    .action-icon:active {
+        transform: scale(0.88);
+        opacity: 0.7;
+    }
+
+    .action-icon:hover {
+        opacity: 0.6;
+        color: #555;
+    }
+
+    .like-active {
+        color: #ed4956 !important; /* Instagram Red */
+        animation: like-bounce 0.35s ease-out;
+    }
+
+    @keyframes like-bounce {
+        0% { transform: scale(1); }
+        40% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+    }
+
+    /* --- Content Area --- */
+    .post-details {
+        padding: 0 14px 12px 14px;
+    }
+
+    .likes-count {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .caption-area {
+        font-size: 14px;
+        line-height: 1.45;
+        margin-bottom: 6px;
+    }
+    .timestamp{
+        font-size: 10px;
+        color: var(--secondary-text);
+        text-transform: uppercase;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .add-comment {
+        border-top : 1px solid #efefef;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .emoji-btn { font-size: 24px; cursor: pointer; margin-right: 12px; }
+    
+    .comment-input {
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        height: 18px;
+    }
+
+    .post-btn {
+        color: var(--link-blue);
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        opacity: 0.45; /* Disabled look initially */
+        pointer-events: none;
+    }
+    /* Enable button when typing */
+    .comment-input:valid + .post-btn {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .view-comments {
+        color: var(--secondary-text);
+        font-size: 14px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        text-decoration: none;
+        display: block;
+    }
+
+    
+</style>
+
+<div class="main-layout">
+    <div class="stories-container">
+        {% for i in range(1,8) %}
+        <div class="story-item">
+            <div class="story-ring">
+                <img src="https://i.pravatar.cc/150?img={{ i + 10}}" class="story-img" alt="story">
+            </div>
+            <span class="story-username">user_{{ i }}</span>
+        </div>
+        {% endfor %}
     </div>
-    <div class="card-body">
-      <form action="{{ url_for('posts.post') }}" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    {% for post in posts %}
+<article class="insta-post">
 
-        <div class="form-group">
-          <label for="caption"><i class="fas fa-pen"></i> Caption:</label>
-          <textarea class="form-control" id="caption" name="caption" rows="3" placeholder="Write a caption..."></textarea>
+    <!-- Header -->
+    <div class="post-header">
+        <div class="user-info">
+            <a href="/profile/{{ post.user.username }}">
+                <img src="{% if post.user.profile_pic %}{{ url_for('static', filename=post.user.profile_pic) }}{% else %}https://i.pravatar.cc/150?u={{ post.user.username }}{% endif %}"
+                     class="profile-pic" 
+                     alt="{{ post.user.username }}">
+            </a>
+
+            <a href="/profile/{{ post.user.username }}" class="username">
+                {{ post.user.username }}
+            </a>
         </div>
 
-        <div class="form-group">
-          <label for="image"><i class="fas fa-image"></i> Upload Image (optional):</label>
-          <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
-          <small class="form-text text-muted">Accepted formats: PNG, JPG, JPEG, GIF (max 5MB)</small>
+        <div class="more-options">
+            <i class="fas fa-ellipsis-h"></i>
         </div>
-
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-paper-plane"></i> Post
-        </button>
-      </form>
     </div>
-  </div>
 
-  <div class="posts-container">
-    {% if posts %}
-      {% for post in posts %}
-      <div class="card post-card mb-4">
-        <div class="card-header">
-          <strong>@{{ post.user }}</strong>
-          <small class="text-muted float-right">{{ post.time | int }}</small>
+    <!-- Image -->
+    <div class="post-image-container">
+        <img src="{{ url_for('static', filename=post.image) }}"
+             class="post-image"
+             alt="Post image"
+             onerror="this.src='https://placehold.co/600x400?text=Image+Not+Found';">
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="post-actions">
+        <div class="action-group">
+            <!-- Like -->
+            <i class="action-icon 
+                       {% if user.id in post.liked_by_ids %}fas fa-heart like-active
+                       {% else %}far fa-heart
+                       {% endif %}" 
+               data-post-id="{{ post.id }}">
+            </i>
+
+            <!-- Comment -->
+            <i class="action-icon far fa-comment" onclick="focusCommentBox('{{ post.id }}')"></i>
+
+            <!-- Share -->
+            <i class="action-icon far fa-paper-plane"></i>
         </div>
 
-        {% if post.image %}
-        <img src="{{ post.image }}" class="card-img-top" alt="Post Image" style="max-height: 500px; object-fit: cover;">
+        <div class="save-icon">
+            <i class="action-icon far fa-bookmark"></i>
+        </div>
+    </div>
+
+    <!-- Likes / Caption / Comments Info -->
+    <div class="post-details">
+        <span class="likes-count" id="likes-count-{{ post.id }}">
+            {{ post.like_set|length }} likes
+        </span>
+
+        <div class="caption-area">
+            <a href="/profile/{{ post.user.username }}" class="username">{{ post.user.username }}</a>
+            {{ post.caption }}
+        </div>
+
+        {% if post.comment_set|length > 0 %}
+        <div class="view-comments">
+            View all {{ post.comment_set|length }} comments
+        </div>
         {% endif %}
 
-        <div class="card-body">
-          {% if post.text %}
-          <p class="card-text"><strong>@{{ post.user }}</strong> {{ post.text }}</p>
-          {% endif %}
+        <span class="timestamp">{{ post.created_at }}</span>
+    </div>
 
-          <div class="post-actions mt-3">
-            <span style="cursor: pointer;" title="Like">
-              <i class="far fa-heart"></i>
-            </span>
-            <span style="cursor: pointer;" title="Comment">
-              <i class="far fa-comment"></i>
-            </span>
-            <span style="cursor: pointer;" title="Share">
-              <i class="fas fa-share"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    {% else %}
-      <div class="alert alert-info">
-        <p>No posts yet! Be the first to post something or add some friends to see their posts.</p>
-      </div>
-    {% endif %}
-  </div>
+    <!-- Add Comment -->
+    <form class="add-comment-section" action="/comment/{{ post.id }}/" method="POST">
+        <div class="emoji-btn">😊</div>
+        <input type="text" 
+               name="comment_text" 
+               id="comment-input-{{ post.id }}" 
+               class="comment-input" 
+               placeholder="Add a comment..." 
+               required>
+        <button type="submit" class="post-btn">Post</button>
+    </form>
+
+</article>
+
+{% else %}
+<div class="no-posts">
+    <h3>No posts yet</h3>
 </div>
+{% endfor %}
 
-<style>
-.post-card {
-  max-width: 600px;
-  margin: 0 auto 20px auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+<script>
+    // 1. Like Button Logic
+    document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const postId = this.getAttribute('data-post-id');
+            const isLiked = this.classList.contains('fas');
 
-.post-card .card-header {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-}
+            // Visual Toggle immediately
+            if (isLiked) {
+                this.classList.remove('fas', 'like-active');
+                this.classList.add('far');
+            } else {
+                this.classList.remove('far');
+                this.classList.add('fas', 'like-active');
+            }
 
-.post-actions span {
-  margin-right: 20px;
-  font-size: 1.3em;
-  color: #555;
-  transition: color 0.3s ease;
-}
+            // You would keep your FETCH call here...
+            // For now, I'll skip the fetch code to keep this snippet clean, 
+            // but paste your previous fetch logic back here!
+        });
+    });
 
-.post-actions span:hover {
-  color: #007bff;
-}
+    // 2. Save/Bookmark Logic (Visual Only)
+    document.querySelectorAll('.save-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.classList.contains('far')) {
+                this.classList.remove('far');
+                this.classList.add('fas'); // Solid bookmark icon
+            } else {
+                this.classList.remove('fas');
+                this.classList.add('far'); // Outline bookmark icon
+            }
+        });
+    });
 
-.post-actions span:hover .fa-heart {
-  color: #e74c3c;
-}
-
-.post-actions span:hover .fa-comment {
-  color: #3498db;
-}
-
-.post-actions span:hover .fa-share {
-  color: #2ecc71;
-}
-</style>
+    // 3. Helper to focus comment box when comment icon is clicked
+    function focusCommentBox(postId) {
+        const input = document.getElementById('comment-input-' + postId);
+        if(input) input.focus();
+    }
+</script>
 
 {% endblock %}
