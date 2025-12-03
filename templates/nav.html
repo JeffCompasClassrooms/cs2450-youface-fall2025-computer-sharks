@@ -3,8 +3,38 @@
 {% block nav %}
 {% endblock %}
 
-<li class="nav-item">
-  <a class="nav-link" href="{{ url_for('friends.find_friends') }}">Find Clowns</a>
-</li> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<nav class="app-navbar">
+    <div class="nav-container">
+        <a class="navbar-brand" href="/">YouFace</a>
+
+        <div class="nav-icons">
+            <a href="/feed" class="nav-link" title="Feed">
+                <i class="fas fa-home"></i>
+            </a>
+
+            <a href="/swipe" class="nav-link nav-flame" title="Find Love">
+                <i class="fas fa-fire"></i>
+            </a>
+
+            <a href="/upload" class="nav-link nav-upload" title="Upload Post">
+                <i class="fas fa-plus-square"></i>
+            </a>
+
+            <a href="{{ url_for('friends.find_friends') }}" class="nav-link" title="Find Clowns">
+                <i class="fas fa-users"></i>
+            </a>
+
+            <a href="/chat/{{ user.username }}" class="nav-link" title="Chat">
+                <i class="fas fa-paper-plane"></i>
+            </a>
+
+            <a href="/profile" class="nav-link nav-profile" title="Profile">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </div>
+    </div>
+</nav>
 
 

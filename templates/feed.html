@@ -2,12 +2,258 @@
 {% block title %}YouFace Feed{% endblock %}
 {% block content %}
 
-<div class="container mt-4">
-  <h2>{{ title or 'OnlyClowns Feed' }}</h2>
+<!-- Load FontAwesome for Instagram Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+</style>
+<style>
+    /* --- Instagram-like Feed Styles --- */
+    :root {
+        --border-color: #dbdbdb;
+        --bg-color: #fafafa;
+        --primary-text: #262626;
+        --secondary-text: #8e8e8e;
+    }
 
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white" style="border-top-left-radius: 20px;border-top-right-radius: 20px;">
-      <strong><i class="fas fa-plus-circle"></i> Create a New Post</strong>
+    body {
+        background-color: var(--bg-color); 
+        /* Ensure base.html doesn't override this if possible, otherwise add !important */
+    }
+
+    .main-layout{
+        max-width: 470px;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    .stories-container {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px 0;
+        margin-bottom: 24px;
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+    .stories-container::-webkit-scrollbar {
+        display: none;
+    }
+    .story-item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        witdth: 66px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .story-ring {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        padding: 2px;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+
+    .story-img {
+        width: 100%;
+        height: 100%;
+        border-radius:50%;
+        border: 2px solid #fff;
+        object-fit: cover;
+    }
+
+    .story-username {
+        font-size: 12px;
+        margin-top: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
+    }
+
+    .insta-post {
+        background: rgb(255, 255, 255);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        margin-bottom: 24px;
+        max-width: 600px;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .post-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-pic {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid solid #ddd;
+    }
+
+    .username {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--primary-text);
+        text-decoration: none;
+    }
+    
+    .username:hover {
+        text-decoration: underline;
+    }
+    .post-image-container {
+    width: 100%;
+    background: #000;}
+
+    .post-image { width: 100%; display: block; object-fit: contain;
+    max-height: 775px;}
+
+    .more-options {
+        cursor: pointer;
+        color: var(--primary-text);
+        font-size : 20px;
+    }
+
+
+    /* --- Actions (Like, Comment, Share) --- */
+    .post-actions {
+        padding: 10px 14px 4px 14px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+    }
+
+    .action-group {
+        display: flex;
+        gap: 14px;
+    }
+
+    .action-icon {
+        cursor: pointer;
+        color: var(--primary-text);
+        transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    }
+
+    .action-icon:active {
+        transform: scale(0.88);
+        opacity: 0.7;
+    }
+
+    .action-icon:hover {
+        opacity: 0.6;
+        color: #555;
+    }
+
+    .like-active {
+        color: #ed4956 !important; /* Instagram Red */
+        animation: like-bounce 0.35s ease-out;
+    }
+
+    @keyframes like-bounce {
+        0% { transform: scale(1); }
+        40% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+    }
+
+    /* --- Content Area --- */
+    .post-details {
+        padding: 0 14px 12px 14px;
+    }
+
+    .likes-count {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .caption-area {
+        font-size: 14px;
+        line-height: 1.45;
+        margin-bottom: 6px;
+    }
+    .timestamp{
+        font-size: 10px;
+        color: var(--secondary-text);
+        text-transform: uppercase;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .add-comment {
+        border-top : 1px solid #efefef;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .emoji-btn { font-size: 24px; cursor: pointer; margin-right: 12px; }
+    
+    .comment-input {
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        height: 18px;
+    }
+
+    .post-btn {
+        color: var(--link-blue);
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        opacity: 0.45; /* Disabled look initially */
+        pointer-events: none;
+    }
+    /* Enable button when typing */
+    .comment-input:valid + .post-btn {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .view-comments {
+        color: var(--secondary-text);
+        font-size: 14px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        text-decoration: none;
+        display: block;
+    }
+
+    
+</style>
+
+<div class="main-layout">
+    <div class="stories-container">
+        {% for i in range(1,8)  %}
+        <div class="story-item">
+            <div class="story-ring">
+                <img src="https://i.pravatar.cc/150?img={{ i + 10}}" class="story-img" alt="story">
+            </div>
+            <span class="story-username">user_{{ i }}</span>
+        </div>
+        {% endfor %}
     </div>
     <div class="card-body">
       <form action="{{ url_for('posts.post') }}" method="POST" enctype="multipart/form-data">

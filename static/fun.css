@@ -173,7 +173,35 @@ legend {
 }
 
 /* =========================================
-   5. DARK MODE STYLING
+#send-form {
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+#send-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+#send-form button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background: #3897f0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#send-form button:hover {
+    opacity: 0.7;
+}
+                  5. DARK MODE STYLING
    ========================================= */
 
 /* 🌙 DARK MODE STYLING */
@@ -185,16 +213,16 @@ body.dark-mode {
 
 /* Feed container adjustment to mimic Instagram layout */
 .container.py-5 {
-  max-width: 900px;
+  max-width: 600px;
   /* narrower feed like Instagram */
-  margin: auto;
-  padding-top: 2rem;
+  margin:0 auto;
+  padding-top: 60px;
   padding-bottom: 2rem;
 }
 
 /* Post card improvements */
 .card.post-card {
-  border-radius: 20px;
+  border-radius: 1px solid #dbdbdb;
   /* your existing rounded corners */
   overflow: hidden;
   margin-bottom: 30px;
@@ -426,7 +454,122 @@ h1 a:hover {
     transform: scale(1);
   }
 }
+/* --- Instagram Feed Additions --- */
 
+.insta-post {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    max-width: 600px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.profile-pic {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    color: #222;
+}
+
+.username:hover {
+    text-decoration: underline;
+}
+
+.post-image {
+    width: 100%;
+    padding-bottom: 100%;
+    height: 0;
+    object-fit: cover;
+    display: block;
+    
+}
+
+.post-actions {
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+}
+
+.action-icon {
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.2s;
+}
+
+.action-icon:hover {
+    opacity: 0.6;
+}
+
+.like-active {
+    color: #ed4956 !important;
+}
+
+.post-details {
+    padding: 10px 14px 15px;
+}
+
+.likes-count {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.caption-area {
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+/* --- Profile Picture/Story Row (The 'Other Profile Pictures') --- */
+.story-reel {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px 0;
+    display: flex;
+    overflow-x: scroll; /* Allows horizontal scrolling */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* Better mobile scrolling */
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+}
+
+.story-item {
+    display: inline-block;
+    text-align: center;
+    padding: 0 8px;
+    min-width: 70px; /* Small width for each item */
+}
+
+.story-item .profile-pic {
+    width: 56px;
+    height: 56px;
+    border: 3px solid #ff00ff; /* **Your bold 'OnlyClowns' border color!** */
+    padding: 2px;
+    border-radius: 50%;
+    /* Gradient border can be complex, solid is easier */
+}
+
+.story-item .username {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* 🎪 MESSAGE BUTTON — OnlyClowns Style */
 .message-btn {
@@ -449,5 +592,158 @@ h1 a:hover {
   transform: scale(1.08);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
   filter: brightness(1.2);
+}
+/* --- Tinder Swipe Cards --- */
+
+#swipe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    margin-top: 0px;
+    position: relative; 
+}
+
+#swipe-card {
+    width: 350px;
+    height: 480px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s;
+    cursor: grab; 
+}
+/* **Stacking effect for the cards underneath** */
+#swipe-container .next-card {
+    /* Cards below the top one */
+    transform: translateY(10px) scale(0.95);
+    opacity: 0.8;
+} 
+
+#swipe-container .next-next-card {
+    /* Cards even further down */
+    transform: translateY(20px) scale(0.9);
+    opacity: 0.6;
+} 
+
+#swipe-card img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+
+#swipe-card h3 {
+    text-align: center;
+    margin: 10px 0 15px;
+    font-size: 20px;
+}
+
+.swipe-buttons {
+    position: absolute;
+    bottom: -100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 40px;
+}
+
+.swipe-buttons button {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 50%;
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.swipe-buttons .dislike {
+    background: #ff0000;
+    color: white;
+    border: 5px solid #ffdddd;
+}
+
+.swipe-buttons .like {
+    background: #00ff00;
+    color: white;
+    border: 5px solid #ffe5f0;
+}
+
+.swipe-buttons button:hover {
+    transform: scale(1.15);
+}
+
+/* --- JS Animation Classes (Applied by swipe.js) --- */
+
+.swipe-left-anim {
+    transform: translateX(-500px) rotate(-30deg) !important;
+    opacity: 0 !important;
+}
+
+.swipe-right-anim {
+    transform: translateX(500px) rotate(30deg) !important;
+    opacity: 0 !important;
+}
+/* --- Simple Chat Window --- */
+
+#chat-window {
+    width: 90%;
+    max-width: 500px;
+    height: 70vh;
+    margin: 20px auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.msg {
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    max-width: 70%;
+    line-height: 1.4;
+}
+
+.msg.me {
+    background: #daf1ff;
+    margin-left: auto;
+    text-align: right;
+}
+
+.msg.them {
+    background: #eee;
+}
+
+#send-form {
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+#send-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+#send-form button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background: #3897f0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#send-form button:hover {
+    opacity: 0.7;
 }
 

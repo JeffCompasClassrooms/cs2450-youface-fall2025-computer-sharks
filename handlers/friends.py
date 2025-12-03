@@ -15,7 +15,7 @@ def find_friends():
         return flask.redirect(flask.url_for('login.loginscreen'))
 
     username = session['username']
-    all_users = users.get_all_users(db)
+    all_users = users.get_all_users()
      # Get the filter criteria from the form submission (from the URL)
     min_shoe_size_str = flask.request.args.get('shoe_size')
     is_clown = flask.request.args.get('is_clown')
