@@ -44,6 +44,19 @@
                             <i class="fas fa-user-edit"></i> Edit Profile
                         </a>
                     </li>
+		    
+		    <!-- Find Love -->
+		    <li class="nav-item me-2">
+                    <a href="{{ url_for('swipe.swipe') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-rss-square"></i> Feed
+                    </a>
+                </li>
+
+		<li class="nav-item me-2">
+                    <a href="{{ url_for('swipe.swipe_page') }}" class="btn btn-danger btn-sm text-warning fw-bold">
+                        <i class="fas fa-heartbeat"></i> Find Love
+                    </a>
+                </li>
 
                     <!-- Find Friends -->
                     <li class="nav-item me-2">

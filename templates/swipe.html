@@ -1,0 +1,23 @@
+{% block content %}
+    <div class="swipe-area">
+        {% if candidates %}
+            <div class="swipe-card" id="swipe-card" 
+                 data-user-id="{{ candidates[0].username if candidates[0].username != 'Gus the Ghost' else '' }}">
+                
+                </div>
+
+            {% if candidates[0].username != 'Gus the Ghost' %}
+                {% else %}
+                <div class="text-center text-muted mt-4">
+                    <p>Swipe actions are disabled for this placeholder.</p>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="no-cards-message">
+                <h2>💔 No more clowns to find! 🤡</h2>
+                <p>Check back later or adjust your filters.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

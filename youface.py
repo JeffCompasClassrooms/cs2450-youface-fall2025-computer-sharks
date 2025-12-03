@@ -6,19 +6,67 @@ import flask
 import timeago
 import tinydb
 import os
+from db import users
 # handlers
 from handlers import friends, login, posts, profile, messages
+from handlers.swipe import swipe_bp
 from werkzeug.utils import secure_filename
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask import Flask, render_template, request, redirect, url_for, session
+
+
+from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 app = flask.Flask(__name__)
-from datetime import datetime
+app.secret_key = "super-secret-key"
+
+# CSRF Protection
+csrf = CSRFProtect(app)
+
+# Rate Limiter
+limiter = Limiter(
+    key_func=get_remote_address,
+    app=app,
+    default_limits=["200 per day", "50 per hour"]
+)
+
 
 @app.template_filter('convert_time')
 def convert_time(ts):
     """A jinja template helper to convert timestamps to timeago."""
     return timeago.format(ts, time.time())
+@app.route("/feed")
+def feed():
+    username = session.get("username")
+
+    if not username:
+        return redirect(url_for("login.login_page"))
+
+    all_posts = posts.get_all_posts()  # You already have this in handlers/posts.py
+
+    return render_template(
+        "feed.html",
+        posts=all_posts,
+        user=users.get_user(username)  # From db/users.py
+    )
+@app.route("/swipe")
+def swipe():
+    username = session.get("username")
+
+    if not username:
+        return redirect(url_for("login.login_page"))
+
+    all_users = users.get_all_users()
+
+    # Remove yourself from swipe options
+    all_users = [u for u in all_users if u["username"] != username]
+
+    return render_template("swipe.html", users=all_users)
+
 def timesince(dt):
     now = datetime.utcnow()
     diff = now - dt
@@ -49,7 +97,7 @@ app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
 app.register_blueprint(profile.blueprint)
 app.register_blueprint(messages.blueprint)
-
+app.register_blueprint(swipe_bp)
 # Apply specific rate limit to the login endpoint
 limiter.limit("5 per minute", per_method=True, methods=["POST"])(login.login)
 
